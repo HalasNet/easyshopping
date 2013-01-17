@@ -12,7 +12,7 @@
 	<s:form name="add" action="add" method="post">
 		<s:textfield name="userName" label="帐号"></s:textfield>
 		<s:password name="password" label="密码"></s:password>
-		<s:submit></s:submit>1
+		<s:submit></s:submit>
 	</s:form>
 </body>
 </html>
