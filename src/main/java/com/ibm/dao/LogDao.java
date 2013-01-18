@@ -2,7 +2,6 @@ package com.ibm.dao;
 
 import com.ibm.domain.Log;
 
-public interface LogDao {
+public interface LogDao extends IBaseDao<Log, Long> {
 
-	public void addLog(Log log);
 }

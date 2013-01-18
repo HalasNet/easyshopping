@@ -1,5 +1,6 @@
 package com.ibm.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,13 +11,15 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "t_log")
-public class Log extends IdEntity {
+public class Log extends IdEntity implements Serializable {
+
+	private static final long serialVersionUID = 2831790069329668965L;
 
 	private String remark;
 
 	private Date logTime;
 
-	@Column(name="remark")
+	@Column(name = "remark")
 	public String getRemark() {
 		return remark;
 	}
@@ -25,7 +28,7 @@ public class Log extends IdEntity {
 		this.remark = remark;
 	}
 
-	@Column(name="logTime")
+	@Column(name = "logTime")
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date getLogTime() {
 		return logTime;

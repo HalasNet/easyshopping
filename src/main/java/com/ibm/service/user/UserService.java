@@ -28,11 +28,11 @@ public class UserService {
 
 	@Transactional
 	public void saveUser(User user) {
-		userDao.addUser(user);
+		userDao.save(user);
 		Log log = new Log();
 		log.setRemark("add user:"+user.getUserName());
 		log.setLogTime(new Date());
-		logDao.addLog(log);
+		logDao.save(log);
 	}
 
 	@Transactional(readOnly = true)

@@ -1,5 +1,6 @@
 package com.ibm.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,7 +13,9 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "t_user")
-public class User extends IdEntity {
+public class User extends IdEntity implements Serializable {
+
+	private static final long serialVersionUID = -7156991274448325288L;
 
 	private String userName;
 
