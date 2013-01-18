@@ -10,7 +10,7 @@ import com.ibm.domain.User;
 import com.ibm.service.user.UserService;
 import com.opensymphony.xwork2.ActionSupport;
 
-@SuppressWarnings("serial")
+@SuppressWarnings("serial") 
 @Controller("userAction")
 public class UserAction extends ActionSupport {
 
