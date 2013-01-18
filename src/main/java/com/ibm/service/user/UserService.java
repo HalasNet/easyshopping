@@ -1,6 +1,7 @@
 package com.ibm.service.user;
 
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,7 @@ public class UserService {
 	public void saveUser(User user) {
 		userDao.save(user);
 		Log log = new Log();
-		log.setRemark("add user:"+user.getUserName());
+		log.setRemark("add user:" + user.getUserName());
 		log.setLogTime(new Date());
 		logDao.save(log);
 	}
@@ -38,6 +39,11 @@ public class UserService {
 	@Transactional(readOnly = true)
 	public User loginUser(String name, String password) {
 		return userDao.getUserByNameAndPwd(name, password);
+	}
+
+	@Transactional(readOnly = true)
+	public List<User> listAll() {
+		return userDao.listAll();
 	}
 
 }

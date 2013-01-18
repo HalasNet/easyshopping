@@ -1,5 +1,7 @@
 package com.ibm.action;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,7 @@ import com.ibm.domain.User;
 import com.ibm.service.user.UserService;
 import com.opensymphony.xwork2.ActionSupport;
 
-@SuppressWarnings("serial") 
+@SuppressWarnings("serial")
 @Controller("userAction")
 public class UserAction extends ActionSupport {
 
@@ -20,6 +22,8 @@ public class UserAction extends ActionSupport {
 	private String userName;
 
 	private String password;
+
+	private List<User> users;
 
 	@Autowired
 	private UserService userService;
@@ -41,6 +45,11 @@ public class UserAction extends ActionSupport {
 		return "success";
 	}
 
+	public String list() {
+		users = userService.listAll();
+		return "list";
+	}
+
 	public String getUserName() {
 		return userName;
 	}
@@ -55,6 +64,14 @@ public class UserAction extends ActionSupport {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 }
