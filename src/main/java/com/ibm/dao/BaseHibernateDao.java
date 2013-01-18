@@ -45,7 +45,6 @@ public abstract class BaseHibernateDao<M extends java.io.Serializable, PK extend
             }
         }
         
-        //TODO @Entity name not null
         HQL_LIST_ALL = "from " + this.entityClass.getSimpleName() + " order by " + pkName + " desc";
         HQL_OPTIMIZE_PRE_LIST_ALL = "from " + this.entityClass.getSimpleName() + " where " + pkName + " > ? order by " + pkName + " asc";
         HQL_OPTIMIZE_NEXT_LIST_ALL = "from " + this.entityClass.getSimpleName() + " where " + pkName + " < ? order by " + pkName + " desc";
@@ -57,7 +56,6 @@ public abstract class BaseHibernateDao<M extends java.io.Serializable, PK extend
     
 
     public Session getSession() {
-        //事务必须是开启的(Required)，否则获取不到
         return sessionFactory.getCurrentSession();
     }
 
@@ -341,7 +339,6 @@ public abstract class BaseHibernateDao<M extends java.io.Serializable, PK extend
         if (paramlist != null) {
             for (int i = 0; i < paramlist.length; i++) {
                 if(paramlist[i] instanceof Date) {
-                    //TODO 难道这是bug 使用setParameter不行？？
                     query.setTimestamp(i, (Date)paramlist[i]);
                 } else {
                     query.setParameter(i, paramlist[i]);
