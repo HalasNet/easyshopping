@@ -59,17 +59,26 @@ public abstract class BaseHibernateDao<M extends java.io.Serializable, PK extend
         return sessionFactory.getCurrentSession();
     }
 
+    /**
+     * 用于保存
+     */
     @SuppressWarnings("unchecked")
     @Override
     public PK save(M model) {
         return (PK) getSession().save(model);
     }
 
+    /**
+     * 用于保存或者修改
+     */
     @Override
     public void saveOrUpdate(M model) {
         getSession().saveOrUpdate(model);
     }
 
+    /**
+     * 用于修改
+     */
     @Override
     public void update(M model) {
         getSession().update(model);
@@ -81,28 +90,43 @@ public abstract class BaseHibernateDao<M extends java.io.Serializable, PK extend
         getSession().merge(model);
     }
 
+    /**
+     * 根据主键删除
+     */
     @Override
     public void delete(PK id) {
         getSession().delete(this.get(id));
 
     }
 
+    /**
+     * 根据对象删除
+     */
     @Override
     public void deleteObject(M model) {
         getSession().delete(model);
 
     }
 
+    /**
+     * 根据ID判断是否存在此对象
+     */
     @Override
     public boolean exists(PK id) {
         return get(id) != null;
     }
 
+    /**
+     * 根据ID获取对象
+     */
     @Override
     public M get(PK id) {
         return (M) getSession().get(this.entityClass, id);
     }
 
+    /**
+     * 查询所有记录的个数
+     */
     @Override
     public int countAll() {
         Long total = aggregate(HQL_COUNT_ALL);
@@ -110,11 +134,18 @@ public abstract class BaseHibernateDao<M extends java.io.Serializable, PK extend
     }
 
 
+    /**
+     * 获取所有记录
+     */
     @Override
     public List<M> listAll() {
         return list(HQL_LIST_ALL);
     }
 
+    
+    /**
+     * 分页获取所有记录
+     */
     @Override
     public List<M> listAll(int pn, int pageSize) {
         return this.list(HQL_LIST_ALL, pn, pageSize);
@@ -138,11 +169,17 @@ public abstract class BaseHibernateDao<M extends java.io.Serializable, PK extend
         return listWithParam(HQL_OPTIMIZE_NEXT_LIST_ALL, 1, pageSize, pk);
     }
 
+    /**
+     * 刷新session，将对象强制保存到数据库
+     */
     @Override
     public void flush() {
         getSession().flush();
     }
 
+    /**
+     * 清空session
+     */
     @Override
     public void clear() {
         getSession().clear();
@@ -163,7 +200,13 @@ public abstract class BaseHibernateDao<M extends java.io.Serializable, PK extend
 
 
     /**
-     * for in
+     * 根据条件分页查询，但是特殊在于多了一个map，这个是用于对某一个参数的value可能是一个Collection<?>
+     * @param hql
+     * @param start
+     * @param length
+     * @param map
+     * @param paramlist
+     * @return
      */
     @SuppressWarnings("unchecked")
     protected <T> List<T> listWithIn(final String hql,final int start, final int length, final Map<String, Collection<?>> map, final Object... paramlist) {
@@ -182,6 +225,15 @@ public abstract class BaseHibernateDao<M extends java.io.Serializable, PK extend
         return results;
     }
 
+    
+    /**
+     * 根据条件进行分页查询
+     * @param hql
+     * @param pn
+     * @param pageSize
+     * @param paramlist
+     * @return
+     */
     @SuppressWarnings("unchecked")
     protected <T> List<T> listWithParam(final String hql, final int pn, final int pageSize, final Object... paramlist) {
         Query query = getSession().createQuery(hql);
@@ -202,6 +254,9 @@ public abstract class BaseHibernateDao<M extends java.io.Serializable, PK extend
 
     /**
      * 根据查询条件返回唯一一条记录
+     * @param hql
+     * @param paramlist
+     * @return
      */
     @SuppressWarnings("unchecked")
     protected <T> T unique(final String hql, final Object... paramlist) {
@@ -210,10 +265,13 @@ public abstract class BaseHibernateDao<M extends java.io.Serializable, PK extend
         return (T) query.setMaxResults(1).uniqueResult();
     }
 
-       /**
-        * 
-        * for in
-        */
+    /**
+     * 聚合查询，如count，sum等
+     * @param hql
+     * @param map
+     * @param paramlist
+     * @return
+     */
     @SuppressWarnings("unchecked")
     protected <T> T aggregate(final String hql, final Map<String, Collection<?>> map, final Object... paramlist) {
         Query query = getSession().createQuery(hql);
@@ -227,6 +285,13 @@ public abstract class BaseHibernateDao<M extends java.io.Serializable, PK extend
         return (T) query.uniqueResult();
     }
         
+    
+    /**
+     * 聚合查询，如count，sum等
+     * @param hql
+     * @param paramlist
+     * @return
+     */
     @SuppressWarnings("unchecked")
     protected <T> T aggregate(final String hql, final Object... paramlist) {
         Query query = getSession().createQuery(hql);
@@ -238,7 +303,11 @@ public abstract class BaseHibernateDao<M extends java.io.Serializable, PK extend
 
 
     /**
-     * 执行批处理语句.如 之间insert, update, delete 等.
+     * 大数据量操作，如批量的save，update
+     * 使用HQL
+     * @param hql
+     * @param paramlist
+     * @return
      */
     protected int execteBulk(final String hql, final Object... paramlist) {
         Query query = getSession().createQuery(hql);
@@ -247,6 +316,14 @@ public abstract class BaseHibernateDao<M extends java.io.Serializable, PK extend
         return result == null ? 0 : ((Integer) result).intValue();
     }
     
+    
+    /**
+     * 大数据量操作，如批量的save，update
+     * 使用原生的SQL
+     * @param natvieSQL
+     * @param paramlist
+     * @return
+     */
     protected int execteNativeBulk(final String natvieSQL, final Object... paramlist) {
         Query query = getSession().createSQLQuery(natvieSQL);
         setParameters(query, paramlist);
@@ -254,10 +331,27 @@ public abstract class BaseHibernateDao<M extends java.io.Serializable, PK extend
         return result == null ? 0 : ((Integer) result).intValue();
     }
 
+    /**
+     * 根据SQL语句和参数列表获取结果，没有进行分页
+     * @param sql
+     * @param paramlist
+     * @return
+     */
     protected <T> List<T> list(final String sql, final Object... paramlist) {
         return listWithParam(sql, -1, -1, paramlist);
     }
         
+    
+    /**
+     * 原生的分页查询，包含多个参数，也包含页码，也每页数量
+     * @param nativeSQL
+     * @param pn
+     * @param pageSize
+     * @param entityList
+     * @param scalarList
+     * @param paramlist
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public <T> List<T> listByNative(final String nativeSQL, final int pn, final int pageSize,
             final List<Entry<String, Class<?>>> entityList, 
@@ -288,6 +382,14 @@ public abstract class BaseHibernateDao<M extends java.io.Serializable, PK extend
         return result;
     }
         
+    
+    /**
+     * 原生的SQL查询
+     * @param natvieSQL
+     * @param scalarList
+     * @param paramlist
+     * @return
+     */
     @SuppressWarnings("unchecked")
     protected <T> T aggregateByNative(final String natvieSQL, final List<Entry<String, Type>> scalarList, final Object... paramlist) {
         SQLQuery query = getSession().createSQLQuery(natvieSQL);
@@ -303,6 +405,15 @@ public abstract class BaseHibernateDao<M extends java.io.Serializable, PK extend
         return (T) result;
     }
         
+    
+    /**
+     * 通过criteria设置查询参数，并且进行分页查询
+     * @param query
+     * @param orderBy
+     * @param pn
+     * @param pageSize
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public <T> List<T> list(ConditionQuery query, OrderBy orderBy, final int pn, final int pageSize) {
         Criteria criteria = getSession().createCriteria(this.entityClass);
@@ -316,29 +427,55 @@ public abstract class BaseHibernateDao<M extends java.io.Serializable, PK extend
         return criteria.list();
     }
 
+    /**
+     * Criteria查询，参数已经包含在Criteria对象中
+     * @param criteria
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public <T> List<T> list(Criteria criteria) {
         return criteria.list();
     }
 
+    /**
+     * Criteria查询单个对象
+     * @param criteria
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public <T> T unique(Criteria criteria) {
         return (T) criteria.uniqueResult();
     }
 
+    /**
+     * 离线的Criteria查询，查询多个对象
+     * @param criteria
+     * @return
+     */
     public <T> List<T> list(DetachedCriteria criteria) {
         return list(criteria.getExecutableCriteria(getSession()));
     }
 
+    /**
+     * 离线的Criteria查询，查询单个对象
+     * @param criteria
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public <T> T unique(DetachedCriteria criteria) {
         return (T) unique(criteria.getExecutableCriteria(getSession()));
     }
 
+    /**
+     * 给Query对象设置多个查询参数
+     * @param query
+     * @param paramlist
+     */
     protected void setParameters(Query query, Object[] paramlist) {
         if (paramlist != null) {
             for (int i = 0; i < paramlist.length; i++) {
                 if(paramlist[i] instanceof Date) {
+                	//时间函数比较特殊
                     query.setTimestamp(i, (Date)paramlist[i]);
                 } else {
                     query.setParameter(i, paramlist[i]);

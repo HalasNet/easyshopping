@@ -56,6 +56,12 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+	 <jsp-config>
+	    <taglib>
+	      <taglib-uri>http://ibm/commons</taglib-uri>
+	      <taglib-location>/tld/commons.tld</taglib-location>
+	    </taglib>
+	  </jsp-config>
 
 	<session-config>
 		<session-timeout>20</session-timeout>

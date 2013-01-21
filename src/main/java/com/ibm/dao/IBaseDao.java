@@ -7,8 +7,8 @@ import java.util.List;
  * 
  * @author david
  * 
- * @param <M>
- * @param <PK>
+ * @param <M>  模型
+ * @param <PK> 主键
  */
 public interface IBaseDao<M extends java.io.Serializable, PK extends java.io.Serializable> {
 
