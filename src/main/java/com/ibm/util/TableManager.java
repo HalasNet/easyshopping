@@ -14,6 +14,7 @@ public class TableManager {
 		SchemaExport export = new SchemaExport(
 				new AnnotationConfiguration().configure());
 		export.create(true, true);
+		System.out.println("");
 	}
 
 }
