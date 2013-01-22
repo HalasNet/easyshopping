@@ -15,6 +15,7 @@ public class TableManager {
 				new AnnotationConfiguration().configure());
 		export.create(true, true);
 		System.out.println("");
+		System.out.println("");
 	}
 
 }
