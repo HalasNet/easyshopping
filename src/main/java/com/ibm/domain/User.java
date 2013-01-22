@@ -2,9 +2,17 @@ package com.ibm.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,6 +30,12 @@ public class User extends IdEntity implements Serializable {
 	private String password;
 
 	private Date birthday;
+
+	private UserAccount userAccount;
+
+	private Set<Order> orders;
+
+	private Set<Role> roles;
 
 	@Column(name = "userName")
 	@NotBlank
@@ -51,6 +65,35 @@ public class User extends IdEntity implements Serializable {
 
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
+	}
+
+	@OneToOne(optional = false, cascade = { CascadeType.ALL })
+	@JoinColumn(name = "accountId")
+	public UserAccount getUserAccount() {
+		return userAccount;
+	}
+
+	public void setUserAccount(UserAccount userAccount) {
+		this.userAccount = userAccount;
+	}
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	public Set<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
+	}
+
+	@ManyToMany
+	@JoinTable(name = "t_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 }

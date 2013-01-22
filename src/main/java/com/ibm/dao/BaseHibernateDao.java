@@ -119,7 +119,8 @@ public abstract class BaseHibernateDao<M extends java.io.Serializable, PK extend
     /**
      * 根据ID获取对象
      */
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public M get(PK id) {
         return (M) getSession().get(this.entityClass, id);
     }

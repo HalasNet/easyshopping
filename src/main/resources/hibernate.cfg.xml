@@ -21,5 +21,8 @@
               <!-- 映射使用了@Entity注解注释过的实体类-->
               <mapping class="com.ibm.domain.User" />
               <mapping class="com.ibm.domain.Log" />
+              <mapping class="com.ibm.domain.UserAccount" />
+              <mapping class="com.ibm.domain.Order" />
+              <mapping class="com.ibm.domain.Role"/>
        </session-factory>
 </hibernate-configuration>
