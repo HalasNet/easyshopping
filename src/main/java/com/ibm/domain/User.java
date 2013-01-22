@@ -87,7 +87,7 @@ public class User extends IdEntity implements Serializable {
 	}
 
 	@ManyToMany
-	@JoinTable(name = "t_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JoinTable(name = "t_user_role", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
 	public Set<Role> getRoles() {
 		return roles;
 	}

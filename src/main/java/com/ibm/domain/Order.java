@@ -48,7 +48,7 @@ public class Order extends IdEntity implements Serializable {
 	}
 
 	@ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="userId")
 	public User getUser() {
 		return user;
 	}
