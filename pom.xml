@@ -280,7 +280,7 @@
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-jsp</artifactId>
 			<version>${jetty.version}</version>
-			<scope>test</scope>
+			<scope>provided</scope>
 		</dependency>
 		<!-- TEST end -->
 	</dependencies>
