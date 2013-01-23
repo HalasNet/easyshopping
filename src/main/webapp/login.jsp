@@ -10,7 +10,7 @@
 <script type="text/javascript">
 	function checkLogin(){
 		var form = document.getElementById("adminlogin");
-		form.action="login.action";
+		form.action="/user/login";
 		form.submit();
 	}
 	function reset(){
