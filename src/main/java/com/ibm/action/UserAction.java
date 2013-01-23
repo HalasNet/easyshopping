@@ -2,6 +2,8 @@ package com.ibm.action;
 
 import java.util.List;
 
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,7 @@ public class UserAction extends ActionSupport {
 		return "success";
 	}
 
+	@Action(value="/user/list",results = { @Result(name = "list", location = "/list.jsp") })
 	public String list() {
 		users = userService.listAll();
 		return "list";
