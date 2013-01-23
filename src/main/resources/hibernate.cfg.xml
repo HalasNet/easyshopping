@@ -24,5 +24,6 @@
               <mapping class="com.ibm.domain.UserAccount" />
               <mapping class="com.ibm.domain.Order" />
               <mapping class="com.ibm.domain.Role"/>
+              <mapping class="com.ibm.domain.Product"/>
        </session-factory>
 </hibernate-configuration>
