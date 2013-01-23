@@ -6,7 +6,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ibm.dao.LogDao;
@@ -16,7 +20,7 @@ import com.ibm.domain.Log;
 import com.ibm.domain.User;
 
 @Service
-public class UserService{
+public class UserService implements UserDetailsService{
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(UserDaoImpl.class);
@@ -44,6 +48,13 @@ public class UserService{
 	@Transactional(readOnly = true)
 	public List<User> listAll() {
 		return userDao.listAll();
+	}
+
+	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
+	@Override
+	public UserDetails loadUserByUsername(String username)
+			throws UsernameNotFoundException {
+		return userDao.getUserByName(username);
 	}
 
 }
