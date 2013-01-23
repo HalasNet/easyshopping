@@ -3,6 +3,7 @@ package com.ibm.action;
 import java.util.List;
 
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 @SuppressWarnings("serial")
 @Controller("userAction")
+@ParentPackage("struts-default")
 public class UserAction extends ActionSupport {
 
 	private static final Logger logger = LoggerFactory
@@ -48,7 +50,7 @@ public class UserAction extends ActionSupport {
 	}
 
 	@Action(value="/user/list",results = { @Result(name = "list", location = "/list.jsp") })
-	public String list() {
+	public String index() {
 		users = userService.listAll();
 		return "list";
 	}
