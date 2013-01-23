@@ -28,7 +28,6 @@
 					href="">修改</a></td>
 			</tr>
 		</s:iterator>
-		
 	</table>
 	<common:page url="/list.action" optimize="true"/>
 	<common:pageV2 url="/list.action" optimize="true"/>

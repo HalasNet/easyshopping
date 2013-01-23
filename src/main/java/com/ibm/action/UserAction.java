@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.Results;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import com.opensymphony.xwork2.ActionSupport;
 @SuppressWarnings("serial")
 @Controller("userAction")
 @ParentPackage("struts-default")
+@Results(@Result(name = "list", location = "/list.jsp"))
 public class UserAction extends ActionSupport {
 
 	private static final Logger logger = LoggerFactory
@@ -32,6 +34,9 @@ public class UserAction extends ActionSupport {
 	@Autowired
 	private UserService userService;
 
+	@Action(value = "/login", results = {
+			@Result(name = "success", location = "/success.jsp"),
+			@Result(name = "error", location = "/error.jsp") })
 	public String login() {
 		User user = userService.loginUser(userName, password);
 		if (user != null) {
@@ -49,7 +54,7 @@ public class UserAction extends ActionSupport {
 		return "success";
 	}
 
-	@Action(value="/user/list",results = { @Result(name = "list", location = "/list.jsp") })
+	@Action(value = "/user/list")
 	public String index() {
 		users = userService.listAll();
 		return "list";
