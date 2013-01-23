@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -35,7 +36,7 @@ public class Role extends IdEntity implements Serializable {
 		this.remark = remark;
 	}
 
-	@ManyToMany(mappedBy = "roles")
+	@ManyToMany(mappedBy = "roles",fetch=FetchType.LAZY)
 	public Set<User> getUser() {
 		return user;
 	}
