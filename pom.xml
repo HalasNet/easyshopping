@@ -280,7 +280,7 @@
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-jsp</artifactId>
 			<version>${jetty.version}</version>
-			<scope>test</scope>
+			<scope>provided</scope>
 		</dependency>
 		<!-- TEST end -->
 	</dependencies>
@@ -387,10 +387,8 @@
 					</execution>
 				</executions>
 			</plugin>
-
-
-
-			<!-- eclipse插件, 设定wtp版本 -->
+ 
+			<!-- eclipse插件, 设定wtp版本   -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
