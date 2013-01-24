@@ -25,5 +25,7 @@
               <mapping class="com.ibm.domain.Order" />
               <mapping class="com.ibm.domain.Role"/>
               <mapping class="com.ibm.domain.Product"/>
+              <mapping class="com.ibm.domain.ProductCategory"/>
+              <mapping class="com.ibm.domain.Authority"/>
        </session-factory>
 </hibernate-configuration>
