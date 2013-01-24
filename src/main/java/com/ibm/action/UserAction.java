@@ -3,13 +3,13 @@ package com.ibm.action;
 import java.util.List;
 
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import com.ibm.dao.impl.UserDaoImpl;
 import com.ibm.domain.User;
@@ -18,9 +18,8 @@ import com.opensymphony.xwork2.ActionSupport;
 
 @ParentPackage("publicPackage")  
 @SuppressWarnings("serial")
-@Controller("userAction")
-@Results({ @Result(name = "list", location = "/list.jsp"),
-		@Result(name = "delete", location = "user-delete.ftl") })
+@Namespace("/admin")
+@Results({ @Result(name = "list", location = "/list.jsp")})
 public class UserAction extends ActionSupport {
 
 	private static final Logger logger = LoggerFactory
@@ -64,6 +63,7 @@ public class UserAction extends ActionSupport {
 		return "list";
 	}
 
+	@Action(value="/test",results={@Result(name="delete",location="user-delete.ftl")})
 	public String delete() {
 		return "delete";
 	}
