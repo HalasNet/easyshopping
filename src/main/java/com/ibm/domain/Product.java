@@ -2,8 +2,11 @@ package com.ibm.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -42,6 +45,11 @@ public class Product extends IdEntity implements Serializable
 	 * 产品价格
 	 */
 	private String productPrice;
+	
+	/**
+	 * 产品类别
+	 */
+	private ProductCategory category;
 
 	@Column(name = "productName")
 	@NotBlank
@@ -87,6 +95,16 @@ public class Product extends IdEntity implements Serializable
 	public void setProductPrice(String productPrice) 
 	{
 		this.productPrice = productPrice;
+	}
+
+	@ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
+	@JoinColumn(name="categoryId")
+	public ProductCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(ProductCategory category) {
+		this.category = category;
 	}
 
 }

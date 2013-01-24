@@ -3,8 +3,8 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-  
-    <!-- 项目的开发模式，设置为true，可以在错误页面获得更详细的信息 -->
+	<include file="config-browser.xml"/>
+	<!-- 项目的开发模式，设置为true，可以在错误页面获得更详细的信息 -->
 	<constant name="struts.devMode" value="true" />
 	<!-- 编码 -->
 	<constant name="struts.i18n.encoding" value="UTF-8" />
@@ -20,9 +20,20 @@
 	<!-- Convention插件使用该常量指定的包作为搜索Action的根包。默认值为action,actions,struts,struts2 -->
 	<constant name="struts.convention.package.locators" value="action,actions" />
 	<!-- 设置即使没有@Action注释，依然创建Action映射。默认值为false -->
-	<constant name="struts.convention.action.mapAllMatches" value="true"/>
+	<constant name="struts.convention.action.mapAllMatches" value="true" />
 	<!-- struts2委托spring管理 -->
 	<constant name="struts.objectFactory" value="spring" />
-	<constant name="struts.mapper.class" value="composite"/>
-    <constant name="struts.mapper.composite" value="struts,rest"/>
+	<constant name="struts.mapper.class" value="rest" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	
+
+	<!-- 全局配置包 -->
+	<package name="publicPackage" extends="struts-default">
+
+		<!-- 全局错误处理 -->
+		<global-results>
+			<result name="error">/error.jsp</result>
+		</global-results>
+
+	</package>
 </struts>
