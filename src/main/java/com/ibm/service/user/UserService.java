@@ -23,6 +23,7 @@ import com.ibm.domain.User;
 @Transactional
 public class UserService implements UserDetailsService{
 
+
 	private static final Logger logger = LoggerFactory
 			.getLogger(UserDaoImpl.class);
 
@@ -49,6 +50,12 @@ public class UserService implements UserDetailsService{
 	@Transactional(readOnly = true)
 	public List<User> listAll() {
 		return userDao.listAll();
+	}
+
+
+	@Transactional(readOnly = true)
+	public User getUser(Long id) {
+		return userDao.get(id);
 	}
 
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)

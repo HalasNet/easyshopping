@@ -163,11 +163,17 @@
 			<artifactId>struts2-convention-plugin</artifactId>
 			<version>${struts2.version}</version>
 		</dependency>
-  
+		
 		<dependency>
 			<groupId>org.apache.struts</groupId>
 			<artifactId>struts2-rest-plugin</artifactId>
 			<version>${struts2.version}</version>
+		</dependency>
+	
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-config-browser-plugin</artifactId>
+			<version>2.3.1.2</version>
 		</dependency>
 
 		<dependency>
