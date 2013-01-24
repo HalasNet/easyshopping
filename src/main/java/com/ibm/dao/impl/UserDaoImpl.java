@@ -27,4 +27,11 @@ public class UserDaoImpl extends BaseHibernateDao<User, Long> implements
 		return user;
 	}
 
+	@Override
+	public User getUserByName(String username) {
+		logger.info("execute UserDaoImpl method getUserByName()");
+		String hql = "from User where userName = ?";
+		return unique(hql, username);
+	}
+
 }
