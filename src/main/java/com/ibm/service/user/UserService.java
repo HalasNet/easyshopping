@@ -55,6 +55,7 @@ public class UserService implements UserDetailsService{
 	@Transactional(readOnly = true)
 	public User getUser(Long id) {
 		return userDao.get(id);
+	}
 
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	@Override
