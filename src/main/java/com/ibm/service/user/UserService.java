@@ -20,6 +20,7 @@ import com.ibm.domain.Log;
 import com.ibm.domain.User;
 
 @Service
+@Transactional
 public class UserService implements UserDetailsService{
 
 	private static final Logger logger = LoggerFactory
