@@ -2,6 +2,7 @@ package com.ibm.action;
 
 import java.util.List;
 
+import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.rest.DefaultHttpHeaders;
@@ -13,6 +14,7 @@ import com.ibm.service.user.RoleService;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
+@ParentPackage("publicPackage")
 @SuppressWarnings("serial")
 @Results(@Result(name = "success", type = "redirectAction", params = {
 		"actionName", "role" }))
@@ -43,6 +45,7 @@ public class RoleAction extends ActionSupport implements ModelDriven<Object> {
 	// 处理不带 id 参数的 GET 请求
 	// 进入首页
 	public HttpHeaders index() {
+
 		list = RoleService.getAll();
 		return new DefaultHttpHeaders("index").disableCaching();
 	}

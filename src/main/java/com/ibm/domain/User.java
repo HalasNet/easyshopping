@@ -67,7 +67,7 @@ public class User extends IdEntity implements Serializable {
 		this.birthday = birthday;
 	}
 
-	@OneToOne(optional = false, cascade = { CascadeType.ALL })
+	@OneToOne(optional = false, cascade = { CascadeType.ALL },fetch=FetchType.LAZY)
 	@JoinColumn(name = "accountId")
 	public UserAccount getUserAccount() {
 		return userAccount;

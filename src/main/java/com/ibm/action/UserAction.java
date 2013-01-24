@@ -16,10 +16,11 @@ import com.ibm.domain.User;
 import com.ibm.service.user.UserService;
 import com.opensymphony.xwork2.ActionSupport;
 
+@ParentPackage("publicPackage")  
 @SuppressWarnings("serial")
 @Controller("userAction")
-@ParentPackage("struts-default")
-@Results(@Result(name = "list", location = "/list.jsp"))
+@Results({ @Result(name = "list", location = "/list.jsp"),
+		@Result(name = "delete", location = "user-delete.ftl") })
 public class UserAction extends ActionSupport {
 
 	private static final Logger logger = LoggerFactory
@@ -31,10 +32,14 @@ public class UserAction extends ActionSupport {
 
 	private List<User> users;
 
+	private Long id;
+
+	private User user;
+
 	@Autowired
 	private UserService userService;
 
-	@Action(value = "/login", results = {
+	@Action(results = {
 			@Result(name = "success", location = "/success.jsp"),
 			@Result(name = "error", location = "/error.jsp") })
 	public String login() {
@@ -54,10 +59,13 @@ public class UserAction extends ActionSupport {
 		return "success";
 	}
 
-	@Action(value = "/user/list")
 	public String index() {
 		users = userService.listAll();
 		return "list";
+	}
+
+	public String delete() {
+		return "delete";
 	}
 
 	public String getUserName() {
@@ -82,6 +90,22 @@ public class UserAction extends ActionSupport {
 
 	public void setUsers(List<User> users) {
 		this.users = users;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public User getUser() {
+		return user;
 	}
 
 }
