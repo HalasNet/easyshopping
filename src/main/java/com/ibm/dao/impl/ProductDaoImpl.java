@@ -20,7 +20,11 @@ public class ProductDaoImpl extends BaseHibernateDao<Product, Long> implements P
 				"from Product where categoryId=? or productname like '%"
 						+ productName + "%'");
 
-		// List  result=session.createQuery("from Classes as a where a.classno like '%"+OId+"%'").list();
+		// List
+		// result=this.getSession().createQuery("from Product where categoryId=? or productname like '%"+productName+"%'").list();
+		// Query query1 =
+		// this.getSession().createQuery("from Product where categoryId=? or productname like :name");
+		// query1.setString("name", "%"+productName+"%");
 
 		query.setLong(0, categoryId);
 		List<Product> products = query.list();
