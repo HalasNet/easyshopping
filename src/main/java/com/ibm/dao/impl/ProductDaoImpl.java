@@ -17,9 +17,12 @@ public class ProductDaoImpl extends BaseHibernateDao<Product, Long> implements P
 	@Override
 	public List<Product> queryProductList(Long categoryId, String productName) {
 		Query query = this.getSession().createQuery(
-				"from Product where categoryId=? or productname=?");
+				"from Product where categoryId=? or productname like '%"
+						+ productName + "%'");
+
+		// List  result=session.createQuery("from Classes as a where a.classno like '%"+OId+"%'").list();
+
 		query.setLong(0, categoryId);
-		query.setString(1, productName);
 		List<Product> products = query.list();
 		return products;
 
