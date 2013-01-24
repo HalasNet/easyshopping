@@ -10,7 +10,7 @@
 	<constant name="struts.i18n.encoding" value="UTF-8" />
 	<!-- 设置Convention插件定位视图资源的根路径，默认为/WEB-INFO/content -->
 	<constant name="struts.convention.result.path" value="/view/" />
-	<!-- Convention通过如下规则确定URL的具体资源部分:去掉类名的Action部分。然后将将每个分部的首字母转为小写，用’-’分割 -->
+	<!-- Convention通过如下规则确定URL的具体资源部分:去掉类名的Action部分。然后将将每个分部的首字母转为小写，用’_’分割 -->
 	<constant name="struts.convention.action.name.separator"
 		value="_" />
 	<!-- 开启开发者模式，在平时开发时修改action的annotation配置可以不重启 -->
@@ -24,6 +24,7 @@
 	<!-- struts2委托spring管理 -->
 	<constant name="struts.objectFactory" value="spring" />
 	<constant name="struts.mapper.class" value="rest" />
+	<!-- 启用动态方法调用 -->
 	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
 	
 

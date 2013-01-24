@@ -23,7 +23,6 @@ import com.ibm.domain.User;
 @Transactional
 public class UserService implements UserDetailsService{
 
-
 	private static final Logger logger = LoggerFactory
 			.getLogger(UserDaoImpl.class);
 
