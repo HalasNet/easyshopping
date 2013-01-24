@@ -57,7 +57,7 @@
 
 
 	<!-- 开启注解事务 -->
-	<tx:annotation-driven transaction-manager="txManager" />
+	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
 
 	<bean id="txManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
