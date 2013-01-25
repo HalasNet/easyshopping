@@ -35,7 +35,7 @@ public class ProductCategoryAction extends ActionSupport  implements ModelDriven
 	private List<ProductCategory> listCategory;
 	
 	@Autowired
-	private ProductCategoryService cService;
+	private ProductCategoryService productCategoryService;
 	
 	
 	/**
@@ -55,7 +55,7 @@ public class ProductCategoryAction extends ActionSupport  implements ModelDriven
 	public HttpHeaders index() 
 	{
 
-		listCategory = cService.queryCategorys();
+		listCategory = productCategoryService.queryCategorys();
 		return new DefaultHttpHeaders("index").disableCaching();
 	}
 	
