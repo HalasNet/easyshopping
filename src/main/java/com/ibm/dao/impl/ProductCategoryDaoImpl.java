@@ -33,13 +33,6 @@ public class ProductCategoryDaoImpl extends BaseHibernateDao<ProductCategory, Lo
 	public List<ProductCategory> query() 
 	{
 		return this.listAll();
-<<<<<<< HEAD
-=======
-//		String sql = " select * from t_productcategory";
-//		Query query = this.getSession().createQuery(sql);
-//		List<ProductCategory> categorys = query.list();
-//		return categorys;
->>>>>>> 940d2ae7ee5072bd2e0b9962ba560943b003e3db
 	}
 	
 }
