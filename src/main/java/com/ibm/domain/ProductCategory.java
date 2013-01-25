@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.NotBlank;
  *
  */
 @Entity
-@Table(name = "t_productcategory")
+@Table(name = "t_product_category")
 public class ProductCategory  extends IdEntity implements Serializable 
 {
 	/**
