@@ -21,7 +21,7 @@ public class Order extends IdEntity implements Serializable {
 
 	private Long number;
 
-	private User user;
+	private Member member;
 
 	public String getProductName() {
 		return productName;
@@ -48,13 +48,13 @@ public class Order extends IdEntity implements Serializable {
 	}
 
 	@ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
-	@JoinColumn(name="userId")
-	public User getUser() {
-		return user;
+	@JoinColumn(name="memberId")
+	public Member getMember() {
+		return member;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setMember(Member member) {
+		this.member = member;
 	}
 
 }

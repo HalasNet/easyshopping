@@ -3,7 +3,7 @@
     xmlns:beans="http://www.springframework.org/schema/beans"  
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
     xsi:schemaLocation="http://www.springframework.org/schema/beans  
-    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd  
     http://www.springframework.org/schema/security  
     http://www.springframework.org/schema/security/spring-security-3.1.xsd">  
     
@@ -13,26 +13,26 @@
      <http pattern="/images/**" security="none"/>
      <http pattern="/styles/**" security="none"/>
      <http pattern="/anonymous/**" security="none"/>  
-     <http use-expressions="true" auto-config="true">
-     <!-- 
-  		<intercept-url pattern="/login" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-  		<intercept-url pattern="/static/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-  		<intercept-url pattern="/accessDenied/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-  		<form-login login-page="/login" default-target-url="/index"/>
-  		<logout logout-url="/logout" logout-success-url="/login"/>
-      -->
-  		<intercept-url pattern="/**" access="hasRole('ROLE_LOGIN_USER')"/>
-        <form-login login-page="/anonymous/login"  
-            authentication-failure-url="/anonymous/login/403"  
-            default-target-url="/index" />  
-        <logout logout-success-url="/anonymous/login"/>  
+     
+     <http use-expressions="true" auto-config="true" pattern="/admin/**">
+
+  		<intercept-url pattern="/admin/**" access="hasRole('ROLE_LOGIN_USER')"/>
+  		
+        <form-login login-page="/login.jsp"  
+            authentication-failure-url="/login.jsp?error=1"  
+            default-target-url="/admin/main" login-processing-url="/admin/j_spring_security_check" always-use-default-target="true"/>  
+            
+        <logout logout-success-url="/login.jsp"/>
+        
         <!-- 实现免登陆验证 -->  
         <session-management invalid-session-url="/anonymous/accessDenied/timeout">  
             <concurrency-control max-sessions="10" error-if-maximum-exceeded="true" />  
         </session-management>  
-        
+  		
   		<custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="loginFilter"  />
-  </http>
+  		
+  		
+    </http>
 
        <beans:bean id="loginFilter" class="com.ibm.security.FilterSecurityInterceptor">
          <beans:property name="authenticationManager"
