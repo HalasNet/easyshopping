@@ -15,9 +15,9 @@ import com.opensymphony.xwork2.ActionSupport;
 @ParentPackage("publicPackage")
 @Namespace("/admin")
 @SuppressWarnings("serial")
-@Results( { @Result(name = "authview", location = "/add_authority.jsp"),
-		@Result(name = "authmodify", location = "/mod_authority.jsp"),
-		@Result(name = "success", location = "/authority.jsp"),
+@Results( { @Result(name = "authview", location = "/view/auth/add_authority.jsp"),
+		@Result(name = "authmodify", location = "/view/auth/mod_authority.jsp"),
+		@Result(name = "success", location = "/view/auth/authority.jsp"),
 		@Result(name = "error", location = "/error.jsp") })
 public class AuthorityAction extends ActionSupport {
 
