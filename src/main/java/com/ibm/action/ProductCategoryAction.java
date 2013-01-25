@@ -26,7 +26,9 @@ import com.opensymphony.xwork2.ModelDriven;
 @ParentPackage("publicPackage")
 @SuppressWarnings("serial")
 @Namespace("/admin")
-@Results({ @Result(name = "index", location = "/view/auth/product-category-index.ftl") })
+@Results({ @Result(name = "index", location = "/view/auth/product-category-index.ftl") ,
+			@Result(name = "addProductCategoryView", location = "/view/auth/add_category.jsp"),
+			@Result(name = "addProductCategory", location = "/view/auth/add_category_success.jsp")})
 public class ProductCategoryAction extends ActionSupport implements
 		ModelDriven<Object> {
 	/**
@@ -45,10 +47,15 @@ public class ProductCategoryAction extends ActionSupport implements
 	 * 
 	 * @return String 字符串
 	 */
-	@Action(results = { @Result(name = "success", location = "/success.jsp") })
-	public String addProductCategory() {
+	public String addProductCategoryView() {
 
-		return "success";
+		return "addProductCategoryView";
+	}
+	
+	public String addProductCategory()
+	{
+		System.out.println(productCategory.getCategoryName());
+		return "addProductCategory";
 	}
 
 	// 处理不带 id 参数的 GET 请求
