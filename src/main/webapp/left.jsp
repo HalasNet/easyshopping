@@ -15,10 +15,8 @@ href="styles/style_left.css" type=text/css rel=stylesheet>
         <TR>
           <TD class=menu id=menubar vAlign=top>
           <ol>
-            <LI><A href="admin/authority" 
-            target=frmright>权限管理</A> </LI>
             <LI><A href="#" 
-            target=frmright>角色管理</A> </LI>
+            target=frmright>权限管理</A> </LI>
             <LI><A href="#" 
             target=frmright>人员管理</A> </LI>
             <LI><A href="#" 

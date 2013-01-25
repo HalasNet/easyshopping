@@ -39,7 +39,7 @@ public class UserAction extends ActionSupport {
 	private UserService userService;
 
 	@Action(results = {
-			@Result(name = "success", location = "/main.jsp"),
+			@Result(name = "success", location = "/success.jsp"),
 			@Result(name = "error", location = "/error.jsp") })
 	public String login() {
 		User user = userService.loginUser(userName, password);
