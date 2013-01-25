@@ -8,11 +8,8 @@
               <!-- Database connection 设置 -->
               <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
               <property name="connection.url">jdbc:mysql://localhost:3306/test</property>
-              <property name="connection.url">jdbc:mysql://localhost:3306/easyshopping</property>
               <property name="connection.username">root</property>
-              <property name="connection.password">19841020</property>
-            <!-- 请根据实际配置修改 -->
-            <!--<property name="connection.password">zxcvbnm</property> -->
+              <property name="connection.password">3212095</property>
               <!-- JDBC connection pool (use the built-in) -->
               <property name="connection.pool_size">1</property>
               <!-- SQL 方言，这里使用mysql-->
@@ -27,8 +24,5 @@
               <mapping class="com.ibm.domain.UserAccount" />
               <mapping class="com.ibm.domain.Order" />
               <mapping class="com.ibm.domain.Role"/>
-              <mapping class="com.ibm.domain.Authority"/>
-              <mapping class="com.ibm.domain.Product"/>
-              <mapping class="com.ibm.domain.ProductCategory"/>
        </session-factory>
 </hibernate-configuration>
