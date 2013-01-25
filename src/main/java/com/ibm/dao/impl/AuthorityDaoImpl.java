@@ -28,4 +28,10 @@ public class AuthorityDaoImpl extends BaseHibernateDao<Authority, Long>
 		String hql = "from Authority where name like ?";
 		return list(hql, "%"+name+"%");
 	}
+	
+	@Override
+	public List<Authority> listAll() {
+		String hql = "from Authority";
+		return list(hql, (Object[])null);
+	}
 }

@@ -25,7 +25,7 @@
         <logout logout-success-url="/login.jsp"/>
         
         <!-- 实现免登陆验证 -->  
-        <session-management invalid-session-url="/anonymous/accessDenied/timeout">  
+        <session-management invalid-session-url="/anonymous/timeout.jsp">  
             <concurrency-control max-sessions="10" error-if-maximum-exceeded="true" />  
         </session-management>  
   		
