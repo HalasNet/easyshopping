@@ -80,7 +80,7 @@ function del(id)
 					  <!--fy start-->
 					 <table width="99%" height="25" border="0" align="center" cellpadding="0" cellspacing="0">
                         <tr>
-                          <td align="left"><input type="button" value="创 建" class="select_button" onClick="location.href='authority!viewCreate'">
+                          <td align="left"><input type="button" value="创 建" class="select_button" onClick="location.href='product_category!addProductCategoryView'">
                           </td>
                           
                          
