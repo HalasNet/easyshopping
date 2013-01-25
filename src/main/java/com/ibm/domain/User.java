@@ -38,8 +38,6 @@ public class User extends IdEntity implements Serializable,UserDetails {
 
 	private UserAccount userAccount;
 
-	private Set<Order> orders;
-
 	private Set<Role> roles;
 
 	@Column(name = "userName")
@@ -82,15 +80,6 @@ public class User extends IdEntity implements Serializable,UserDetails {
 		this.userAccount = userAccount;
 	}
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	public Set<Order> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(Set<Order> orders) {
-		this.orders = orders;
-	}
-
 	@ManyToMany
 	@JoinTable(name = "t_user_role", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
 	public Set<Role> getRoles() {
@@ -123,32 +112,27 @@ public class User extends IdEntity implements Serializable,UserDetails {
 	@Transient
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		return userName;
 	}
 	@Transient
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	@Transient
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	@Transient
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	@Transient
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }

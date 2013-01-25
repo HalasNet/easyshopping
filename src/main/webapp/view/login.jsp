@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML>
-<HEAD><TITLE>管理员登陆</TITLE>
+<HEAD><TITLE>会员登陆 | menber login</TITLE>
 <META http-equiv=Content-Language content=zh-cn>
 <META http-equiv=Content-Type content="text/html; charset=gb2312">
 <META content="MSHTML 6.00.2800.1611" name=GENERATOR>
@@ -10,7 +10,7 @@
 <script type="text/javascript">
 	function checkLogin(){
 		var form = document.getElementById("adminlogin");
-		form.action="admin/j_spring_security_check";
+		form.action="../menber/j_spring_security_check";
 		form.submit();
 	}
 	function reset(){
