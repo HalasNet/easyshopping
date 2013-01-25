@@ -21,7 +21,7 @@ import com.opensymphony.xwork2.ActionSupport;
 @Namespace("/admin")
 @Results({ @Result(name = "list", location = "/list.jsp")})
 public class UserAction extends ActionSupport {
-
+	
 	private static final Logger logger = LoggerFactory
 			.getLogger(UserDaoImpl.class);
 
@@ -65,6 +65,10 @@ public class UserAction extends ActionSupport {
 
 	@Action(value="/test",results={@Result(name="delete",location="user-delete.ftl")})
 	public String delete() {
+		return "delete";
+	}
+	
+	public String update(){
 		return "delete";
 	}
 

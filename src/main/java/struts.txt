@@ -27,3 +27,6 @@ c:@Action(value="/test",results={@Result(name="delete",location="user-delete.ftl
 
 d:@Results({ @Result(name = "list", location = "/list.jsp")})
 这个配置可以放在类上，表示全类的配置
+
+
+现在并不支持DELETE和PUT两个操作，所以，我们要在表单中多传一个值来模拟这种方式，方法就是在你的<form>标记中加入一个隐藏域：<input type="hidden" name="_method" value="DELETE"/>，这样，在提交表单的时候，Struts2就会知道你当前的请求方式是DELETE，而执行destory()方法。更新也是一样的，加入PUT隐藏域就可以了
