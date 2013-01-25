@@ -1,5 +1,7 @@
 package com.ibm.dao;
 
+import java.util.List;
+
 import com.ibm.domain.Authority;
 
 /**
@@ -10,4 +12,5 @@ import com.ibm.domain.Authority;
  */
 public interface AuthorityDao extends IBaseDao<Authority,Long>{
 
+	public List<Authority> getAuthorityByName(String name);
 }
