@@ -9,7 +9,12 @@
               <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
               <property name="connection.url">jdbc:mysql://localhost:3306/test</property>
               <property name="connection.username">root</property>
+<<<<<<< HEAD
               <property name="connection.password">3212095</property>
+=======
+            <!-- 请根据实际配置修改 -->
+              <property name="connection.password">zxcvbnm</property>
+>>>>>>> 21572873a6de2eb00286f7ec8745b65d3b0afd4e
               <!-- JDBC connection pool (use the built-in) -->
               <property name="connection.pool_size">1</property>
               <!-- SQL 方言，这里使用mysql-->

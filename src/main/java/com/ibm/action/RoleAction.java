@@ -16,8 +16,8 @@ import com.opensymphony.xwork2.ModelDriven;
 
 @ParentPackage("publicPackage")
 @SuppressWarnings("serial")
-@Results(@Result(name = "success", type = "redirectAction", params = {
-		"actionName", "role" }))
+@Results({@Result(name = "success", type = "redirectAction", params = {
+		"actionName", "role" }),@Result(name="show",location="role-show.ftl")})
 public class RoleAction extends ActionSupport implements ModelDriven<Object> {
 	
 	private Long id;
@@ -63,7 +63,7 @@ public class RoleAction extends ActionSupport implements ModelDriven<Object> {
 		return new DefaultHttpHeaders("success").setLocationId(model.getId());
 	}
 
-	// 处理带 id 参数的 GET 请求
+	// 处理带 id 参数的 GET 请求 /role/1
 	public HttpHeaders show() {
 		return new DefaultHttpHeaders("show");
 	}
