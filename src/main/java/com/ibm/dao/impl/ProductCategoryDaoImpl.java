@@ -30,13 +30,13 @@ public class ProductCategoryDaoImpl extends BaseHibernateDao<ProductCategory, Lo
 	/**
 	 * 查询所有的产品类别
 	 */
-	@SuppressWarnings("unchecked")
 	public List<ProductCategory> query() 
 	{
-		String sql = " select * from t_productcategory";
-		Query query = this.getSession().createQuery(sql);
-		List<ProductCategory> categorys = query.list();
-		return categorys;
+		return this.listAll();
+//		String sql = " select * from t_productcategory";
+//		Query query = this.getSession().createQuery(sql);
+//		List<ProductCategory> categorys = query.list();
+//		return categorys;
 	}
 	
 }
