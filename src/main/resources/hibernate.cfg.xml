@@ -10,7 +10,7 @@
               <property name="connection.url">jdbc:mysql://localhost:3306/easyshopping</property>
               <property name="connection.username">root</property>
             <!-- 请根据实际配置修改 -->
-           <property name="connection.password">zxcvbnm</property>
+              <property name="connection.password">zxcvbnm</property>
               <!-- JDBC connection pool (use the built-in) -->
               <property name="connection.pool_size">1</property>
               <!-- SQL 方言，这里使用mysql-->
