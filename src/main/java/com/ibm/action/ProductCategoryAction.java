@@ -128,7 +128,7 @@ public class ProductCategoryAction extends ActionSupport implements
 	 */
 	public String queryCategoryByName()
 	{
-		productCategoryService.queryCategorysByName(productCategory.getCategoryName());
+		listCategory = productCategoryService.queryCategorysByName(productCategory.getCategoryName());
 		return "index";
 	}
 
