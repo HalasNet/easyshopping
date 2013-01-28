@@ -39,6 +39,8 @@ public class ProductCategoryAction extends ActionSupport implements
 
 	@Autowired
 	private ProductCategoryService productCategoryService;
+	
+	private Long categoryId;
 
 	/**
 	 * 
@@ -65,8 +67,8 @@ public class ProductCategoryAction extends ActionSupport implements
 	 */
 	public String modifyProductCategoryView() 
 	{
-		String id = ServletActionContext.getRequest().getParameter("id");
-		productCategory = productCategoryService.queryProductCategoryById(Long.parseLong(id));
+		//String id = ServletActionContext.getRequest().getParameter("id");
+		productCategory = productCategoryService.queryProductCategoryById(categoryId);
 		return "modifyProductCategory";
 	}
 	
@@ -76,8 +78,10 @@ public class ProductCategoryAction extends ActionSupport implements
 	 */
 	public String modifyProductCategory()
 	{
-		String categoryId = ServletActionContext.getRequest().getParameter("categoryId");
-		productCategory.setId(Long.parseLong(categoryId));
+		//String categoryId = ServletActionContext.getRequest().getParameter("categoryId");
+		//productCategory.setId(Long.parseLong(categoryId));
+		
+		productCategory.setId(categoryId);
 		
 		productCategoryService.modifyProductCategory(productCategory);
 		return "operateProductCategory";
@@ -110,6 +114,14 @@ public class ProductCategoryAction extends ActionSupport implements
 
 	public void setListCategory(List<ProductCategory> listCategory) {
 		this.listCategory = listCategory;
+	}
+
+	public Long getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
 	}
 
 }
