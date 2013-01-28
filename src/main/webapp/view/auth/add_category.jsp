@@ -29,7 +29,7 @@
               <!--  input type='hidden' id='authorityId' name='authorityId' /-->
               </td>
               <td bgcolor="#ebebea" align="right">
-			   <input  type="submit" class="select_button"  value="保 存">
+			   <input  type="submit" class="select_button"  value="提交">
                <input  type="button" class="select_button"  onclick="history.go(-1)" value="返 回"></td>
             </tr>	
     </table>

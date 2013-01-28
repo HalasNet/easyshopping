@@ -67,7 +67,7 @@ function del(id)
 								</TD>
 								
 								<TD height="15" align="center">
-									<a href='authority!viewModify?id=${category.id}'><img src="../images/icon_edit.gif" border="0" title="修改"></a>
+									<a href='product_category!modifyProductCategoryView?id=${category.id}'><img src="../images/icon_edit.gif" border="0" title="修改"></a>
 								</TD>       
 								
 								<TD height="15" align="center">
