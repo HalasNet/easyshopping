@@ -57,7 +57,7 @@ public class UserService implements UserDetailsService{
 		return userDao.get(id);
 	}
 
-	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
+	@Transactional(readOnly=true)
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
