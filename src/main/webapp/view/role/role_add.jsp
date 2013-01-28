@@ -15,7 +15,7 @@
 <div class="content_title">
 		<span>
 		<li><img src="../images/icon_r2_c2.gif" ></li>
-		<li>修改权限信息</li>
+		<li>创建角色信息</li>
 		</span>
 </div>
 <div class="content_c">
@@ -30,19 +30,13 @@
               </table></td>
             </tr>
           </table>
-   <form id="authForm" action="authority!modify" method="post" onsubmit="return checkSave();">
+   <form id="roleForm" action="role!create" method="post" onsubmit="return checkSave();">
     <table width="95%" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#d1d1d1">
             <tr bgcolor="#FFFFFF">
-              <td bgcolor="#ebebea" align="right"><font color="red">*</font>权限编码： </td>
-              <td><input  class="box_170" type="text" name="authority.authcode" id="authcode" maxlength="20" value="${authority.authcode}"><input type='hidden' id='authority' name='authority.id' value="${authority.id}"/></td>
-              <td bgcolor="#ebebea" align="right"><font color="red">*</font>权限名称： </td>
-              <td><input  class="box_170" type="text" name="authority.name" id="name"  maxlength="20" value="${authority.name}"></td>
-            </tr>	
-            <tr bgcolor="#FFFFFF">
-              <td bgcolor="#ebebea" align="right">权限路径</td>
-              <td><input  class="box_170" type="text" name="authority.requestURI" id="requestURI"  maxlength="20" value="${authority.requestURI}"></td>
-              <td bgcolor="#ebebea" align="right">权限说明： </td>
-              <td><input  class="box_170" type="text" name="authority.comment" id="comment"  maxlength="20" value="${authority.comment}"></td>
+              <td bgcolor="#ebebea" align="right"><font color="red">*</font>角色名称： </td>
+              <td><input  class="box_170" type="text" name="model.roleName" id="roleName" maxlength="20" ></td>
+              <td bgcolor="#ebebea" align="right">备注： </td>
+              <td><input  class="box_170" type="text" name="model.remark" id="remark"  maxlength="20"></td>
             </tr>
           
     </table>
@@ -60,18 +54,11 @@
 <script>
 function checkSave()
 {
-   var authcode=$("#authcode");
-   if(authcode.val()=="")
+   var roleName=$("#roleName");
+   if(roleName.val()=="")
    {
-      alert('权限编码不能为空');
-      authcode.focus();
-      return false;
-   }
-   var name=$("#name");
-   if(name.val()=="")
-   {
-      alert('权限名称不能为空');
-      name.focus();
+      alert('角色名称不能为空');
+      roleName.focus();
       return false;
    }
 

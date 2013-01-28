@@ -2,6 +2,8 @@ package com.ibm.action;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
@@ -15,17 +17,35 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
 @ParentPackage("publicPackage")
+@Namespace("/admin")
 @SuppressWarnings("serial")
-@Results({@Result(name = "success", type = "redirectAction", params = {
-		"actionName", "role" }),@Result(name="show",location="role-show.ftl")})
+@Results( {
+		@Result(name = "index", location = "/view/role/role_list.jsp"),
+		@Result(name = "roleview", location = "/view/role/role_add.jsp"),
+		@Result(name = "edit", location = "/view/role/role_edit.jsp"),
+		@Result(name = "success", type = "redirectAction", params = {
+				"actionName", "role" }),
+		@Result(name = "show", location = "role-show.ftl") })
 public class RoleAction extends ActionSupport implements ModelDriven<Object> {
-	
+
 	private Long id;
-	
+
+	private Long roleId;
+
 	private Role model = new Role();
-	
+
+	private Role role;
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
 	private List<Role> list;
-	
+
 	@Autowired
 	private RoleService RoleService;
 
@@ -50,6 +70,15 @@ public class RoleAction extends ActionSupport implements ModelDriven<Object> {
 		return new DefaultHttpHeaders("index").disableCaching();
 	}
 
+	/**
+	 * 进入新建页面
+	 * 
+	 * @return
+	 */
+	public String viewCreate() {
+		return "roleview";
+	}
+
 	// 处理不带 id 参数的 GET 请求
 	public String editNew() {
 		model = new Role();
@@ -71,13 +100,13 @@ public class RoleAction extends ActionSupport implements ModelDriven<Object> {
 	// 处理带 id 参数、且指定操作 edit 资源的 GET 请求
 	// 进入编辑页面 (role-edit.jsp)
 	public String edit() {
+		role = RoleService.get(roleId);
 		return "edit";
 	}
 
 	// 处理带 id 参数的 PUT 请求
 	public String update() {
-		RoleService.saveOrUpdate(model);
-		addActionMessage("编辑成功！");
+		RoleService.update(role);
 		return "success";
 	}
 
@@ -89,7 +118,7 @@ public class RoleAction extends ActionSupport implements ModelDriven<Object> {
 
 	// 处理带 id 参数的 DELETE 请求
 	public String destroy() {
-		RoleService.remove(id);
+		RoleService.remove(roleId);
 		addActionMessage("成功删除 ID 为" + id + "的role！");
 		return "success";
 	}
@@ -97,6 +126,31 @@ public class RoleAction extends ActionSupport implements ModelDriven<Object> {
 	// 实现 ModelDriven 接口必须实现的 getModel 方法
 	public Object getModel() {
 		return (list != null ? list : model);
+	}
+
+	public String view() {
+		String name = role.getRoleName();
+		if (StringUtils.isBlank(name)) {
+			return "index";
+		}
+		list = RoleService.getRoleByName(name);
+		return "index";
+	}
+
+	public List<Role> getList() {
+		return list;
+	}
+
+	public void setList(List<Role> list) {
+		this.list = list;
+	}
+
+	public Long getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
 	}
 
 }
