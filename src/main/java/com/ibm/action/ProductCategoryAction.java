@@ -54,6 +54,11 @@ public class ProductCategoryAction extends ActionSupport implements
 	private Long categoryId;
 	
 	/**
+	 * 类别名称-查询使用
+	 */
+	public String categoryName;
+	
+	/**
 	 * 结果码
 	 */
 	public String errorMsg = "";
@@ -128,6 +133,7 @@ public class ProductCategoryAction extends ActionSupport implements
 	 */
 	public String queryCategoryByName()
 	{
+		categoryName = productCategory.getCategoryName();
 		listCategory = productCategoryService.queryCategorysByName(productCategory.getCategoryName());
 		return "index";
 	}
@@ -175,6 +181,14 @@ public class ProductCategoryAction extends ActionSupport implements
 
 	public void setErrorMsg(String errorMsg) {
 		this.errorMsg = errorMsg;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 }
