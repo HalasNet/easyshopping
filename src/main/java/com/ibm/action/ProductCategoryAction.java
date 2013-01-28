@@ -69,6 +69,19 @@ public class ProductCategoryAction extends ActionSupport implements
 		productCategory = productCategoryService.queryProductCategoryById(Long.parseLong(id));
 		return "modifyProductCategory";
 	}
+	
+	/**
+	 * 修改产品类别
+	 * @return String 是否成功
+	 */
+	public String modifyProductCategory()
+	{
+		String categoryId = ServletActionContext.getRequest().getParameter("categoryId");
+		productCategory.setId(Long.parseLong(categoryId));
+		
+		productCategoryService.modifyProductCategory(productCategory);
+		return "operateProductCategory";
+	}
 
 	// 处理不带 id 参数的 GET 请求
 	// 进入首页
