@@ -40,4 +40,9 @@ public class ProductService {
 		productDao.delete(id);
 	}
 
+	public List<Product> search(Long categoryId, String productName, int pn,
+			int pageSize) {
+		return productDao.queryProductList(categoryId, productName, pn,
+				pageSize);
+	}
 }
