@@ -13,7 +13,7 @@ function del(id)
 {
 	if (confirm('确定要删除吗?'))
 	{
-		location.href='product_category!del?id=' + id;
+		location.href='product_category!deleteProductCategory?categoryId=' + id;
 	}
 }
 
