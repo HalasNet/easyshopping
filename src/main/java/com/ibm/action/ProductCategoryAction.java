@@ -28,7 +28,7 @@ import com.opensymphony.xwork2.ModelDriven;
 @Namespace("/admin")
 @Results({ @Result(name = "index", location = "/view/auth/product-category-index.ftl") ,
 			@Result(name = "addProductCategoryView", location = "/view/auth/add_category.jsp"),
-			@Result(name = "addProductCategory", location = "/view/auth/add_category_success.jsp")})
+			@Result(name = "addProductCategory", location = "/view/auth/operate_category_success.jsp")})
 public class ProductCategoryAction extends ActionSupport implements
 		ModelDriven<Object> {
 	/**
