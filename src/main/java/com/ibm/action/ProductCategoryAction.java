@@ -78,7 +78,15 @@ public class ProductCategoryAction extends ActionSupport implements
 	 */
 	public String addProductCategory()
 	{
-		productCategoryService.addProductCategory(productCategory);
+		ProductCategory category = productCategoryService.queryCategoryByName(productCategory.getCategoryName());
+		if (null != category)
+		{
+			errorMsg ="该产品类别已经存在,请重新添加!";
+		}
+		else 
+		{			
+			productCategoryService.addProductCategory(productCategory);
+		}
 		return "operateProductCategory";
 	}
 	
