@@ -60,22 +60,31 @@ function del(id)
                           <td width="65%" align="center" class="td1"><img src="../images/normal_seq.gif"> 类别名称</td>
                           <td colspan="15" align="center" class="td1">操作</td>
                         </tr>
-                         <#list listCategory as category>
-							<TR bgcolor="#FFFFFF">
-								<TD height="15" align="center">
-									${category.categoryName}
-								</TD>
-								
-								<TD height="15" align="center">
-									<a href='product_category!modifyProductCategoryView?categoryId=${category.id}'><img src="../images/icon_edit.gif" border="0" title="修改"></a>
-								</TD>       
-								
-								<TD height="15" align="center">
-									<a href='javascript:del("${category.id}")'> <img src="../images/icon_del.gif" border="0" title="删除"></a>
-								</TD>
-
+                        <#if listCategory?size == 0>
+                        	
+                        	<TR bgcolor="#FFFFFF">
+									<TD height="15" align="center" colspan="3">
+										对不起，没有查询出相关的产品类别
+									</TD>
 							</TR>
-					 	</#list>
+                        <#else>
+                        	<#list listCategory as category>
+								<TR bgcolor="#FFFFFF">
+									<TD height="15" align="center">
+										${category.categoryName}
+									</TD>
+									
+									<TD height="15" align="center">
+										<a href='product_category!modifyProductCategoryView?categoryId=${category.id}'><img src="../images/icon_edit.gif" border="0" title="修改"></a>
+									</TD>       
+									
+									<TD height="15" align="center">
+										<a href='javascript:del("${category.id}")'> <img src="../images/icon_del.gif" border="0" title="删除"></a>
+									</TD>
+	
+								</TR>
+					 		</#list>
+                        </#if>
     </table>
 					  <!--fy start-->
 					 <table width="99%" height="25" border="0" align="center" cellpadding="0" cellspacing="0">
