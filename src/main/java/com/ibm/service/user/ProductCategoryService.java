@@ -22,11 +22,23 @@ public class ProductCategoryService{
 	@Autowired
 	private ProductCategoryDao productCategoryDao;
 
+	/**
+	 * 查询所有类别
+	 * 
+	 * @return list 类别列表
+	 */
 	@Transactional(readOnly = true)
 	public List<ProductCategory> queryCategorys() {
 		return productCategoryDao.query();
 	}
 
-
+	/**
+	 * 增加产品类别
+	 * @param productCategory 类别实体
+	 */
+	@Transactional
+	public void addProductCategory(ProductCategory productCategory) {
+		productCategoryDao.save(productCategory);
+	}
 
 }

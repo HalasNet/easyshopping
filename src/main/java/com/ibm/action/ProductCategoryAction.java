@@ -52,9 +52,13 @@ public class ProductCategoryAction extends ActionSupport implements
 		return "addProductCategoryView";
 	}
 	
+	/**
+	 * 
+	 * @return String 是否成功
+	 */
 	public String addProductCategory()
 	{
-		System.out.println(productCategory.getCategoryName());
+		productCategoryService.addProductCategory(productCategory);
 		return "addProductCategory";
 	}
 
