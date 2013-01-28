@@ -31,6 +31,16 @@ public class ProductCategoryService{
 	public List<ProductCategory> queryCategorys() {
 		return productCategoryDao.query();
 	}
+	
+	/**
+	 * 根据类别名称查询
+	 * @param categoryName 类别名称
+	 * @return list 类别列表
+	 */
+	@Transactional(readOnly = true)
+	public List<ProductCategory> queryCategorysByName(String categoryName) {
+		return productCategoryDao.query(categoryName);
+	}
 
 	/**
 	 * 增加产品类别
@@ -60,6 +70,17 @@ public class ProductCategoryService{
 	@Transactional
 	public void modifyProductCategory(ProductCategory productCategory) {
 		productCategoryDao.saveOrUpdate(productCategory);
+
+	}
+	
+	/**
+	 * 删除产品类别
+	 * @param  categoryId Long类别Id
+	 * @void
+	 */
+	@Transactional
+	public void deleteProductCategory(Long categoryId) {
+		productCategoryDao.delete(categoryId);
 
 	}
 

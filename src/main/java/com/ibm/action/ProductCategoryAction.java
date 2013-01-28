@@ -2,6 +2,9 @@ package com.ibm.action;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
@@ -10,8 +13,11 @@ import org.apache.struts2.rest.DefaultHttpHeaders;
 import org.apache.struts2.rest.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.ibm.domain.Product;
 import com.ibm.domain.ProductCategory;
+import com.ibm.service.product.ProductService;
 import com.ibm.service.user.ProductCategoryService;
+import com.ibm.util.Constants;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -39,7 +45,23 @@ public class ProductCategoryAction extends ActionSupport implements
 	@Autowired
 	private ProductCategoryService productCategoryService;
 	
+	@Autowired
+	private ProductService productService;
+	
+	/**
+	 * 产品类别Id
+	 */
 	private Long categoryId;
+	
+	/**
+	 * 类别名称-查询使用
+	 */
+	public String categoryName = "";
+	
+	/**
+	 * 结果码
+	 */
+	public String errorMsg = "";
 
 	/**
 	 * 
@@ -85,6 +107,36 @@ public class ProductCategoryAction extends ActionSupport implements
 		productCategoryService.modifyProductCategory(productCategory);
 		return "operateProductCategory";
 	}
+	
+	/**
+	 * 删除产品类别
+	 * @return 删除是否成功
+	 */
+	public String deleteProductCategory()
+	{
+		List<Product> listProducts = productService.search(categoryId, "", 0,
+				Constants.DEFAULT_PAGE_SIZE);
+		if (null != listProducts && !listProducts.isEmpty()) 
+		{
+			errorMsg ="删除产品失败,该产品类别下有产品,请先删除产品!";
+			return "operateProductCategory";
+		}
+		//删除产品类别
+		productCategoryService.deleteProductCategory(categoryId);
+		
+		return "operateProductCategory";
+	}
+	
+	/**
+	 * 根据类别名称查询
+	 * @return String 查询是否成功
+	 */
+	public String queryCategoryByName()
+	{
+		categoryName = productCategory.getCategoryName();
+		listCategory = productCategoryService.queryCategorysByName(productCategory.getCategoryName());
+		return "index";
+	}
 
 	// 处理不带 id 参数的 GET 请求
 	// 进入首页
@@ -121,6 +173,22 @@ public class ProductCategoryAction extends ActionSupport implements
 
 	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public String getErrorMsg() {
+		return errorMsg;
+	}
+
+	public void setErrorMsg(String errorMsg) {
+		this.errorMsg = errorMsg;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 }

@@ -8,14 +8,14 @@
 <script language="JavaScript" type="text/javascript">
 function resetQuery()
 {
-   location.href='authority';
+   location.href='role';
 }
 
 function del(id)
 {
 	if (confirm('确定要删除吗?'))
 	{
-		location.href='authority!del?id=' + id;
+		location.href='role!destroy?roleId=' + id;
 	}
 }
 
@@ -26,17 +26,17 @@ function del(id)
 <div class="content_title">
 		<span>
 		<li><img src="../images/icon_r2_c2.gif" ></li>
-		<li>权限管理</li>
+		<li>角色管理</li>
 		</span>
 
 </div>
 <div class="content_c">
   <div class="content_c_div">
-  <form action="authority!view" method="post" >
+  <form action="role!view" method="post" >
     <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
       <tr>
-        <td width="10%">权限名称</td>
-        <td width="25%"><input  class="box_170" type="text" name="authority.name"></td>
+        <td width="10%">角色名称</td>
+        <td width="25%"><input  class="box_170" type="text" name="role.roleName"></td>
         <td width="65%">
           <input name="submit" type="submit" class="select_button" value="查 询" >
           <input name="reset" type="button" class="select_button" value="重 置" onclick="resetQuery();"></td>
@@ -58,31 +58,20 @@ function del(id)
   <div class="content_c_div2">
 			<table width="99%" border="0" align="center" cellpadding="0" cellspacing="1">
                         <tr>
-                          <td width="15%" align="center" class="td1"><img src="../images/normal_seq.gif"> 权限编码</td>
-                          <td width="15%" align="center" class="td1"><img src="../images/normal_seq.gif"> 权限名称</td>
-                          <td width="30%" align="center" class="td1"><img src="../images/normal_seq.gif"> 访问路径</td>
-                          <td width="25%" align="center" class="td1"><img src="../images/normal_seq.gif"> 权限说明</td>
+                          <td width="45%" align="center" class="td1"><img src="../images/normal_seq.gif"> 角色名称</td>
+                          <td width="45%" align="center" class="td1"><img src="../images/normal_seq.gif"> 备注</td>
                           <td colspan="15" align="center" class="td1">操作</td>
                         </tr>
                         <s:iterator value="list" >
 							<TR bgcolor="#FFFFFF">
 								<TD height="15" align="center">
-									<s:property value="authcode" />
-								</TD>
-								
-								<TD height="15" align="center">
-									<s:property value="name" />
-								</TD>
-								
-								<TD height="25" align="center">
-									<s:property value="requestURI" />
+									<s:property value="roleName" />
 								</TD>
 								<TD height="15" align="center">
-									<s:property value="comment" />
+									<s:property value="remark" />
 								</TD>
-								
 								<TD height="15" align="center">
-									<a href="authority!viewModify?id=<s:property value="id"/>"><img src="../images/icon_edit.gif" border="0" title="修改"></a>
+									<a href="role!edit?roleId=<s:property value="id"/>"><img src="../images/icon_edit.gif" border="0" title="修改"></a>
 								</TD>       
 								
 								<TD height="15" align="center">
@@ -95,7 +84,7 @@ function del(id)
 					  <!--fy start-->
 					 <table width="99%" height="25" border="0" align="center" cellpadding="0" cellspacing="0">
                         <tr>
-                          <td align="left"><input type="button" value="创 建" class="select_button" onClick="location.href='authority!viewCreate'">
+                          <td align="left"><input type="button" value="创 建" class="select_button" onClick="location.href='role!viewCreate'">
                           </td>
                           
                          
