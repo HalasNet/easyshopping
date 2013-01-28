@@ -62,5 +62,16 @@ public class ProductCategoryService{
 		productCategoryDao.saveOrUpdate(productCategory);
 
 	}
+	
+	/**
+	 * 删除产品类别
+	 * @param  categoryId Long类别Id
+	 * @void
+	 */
+	@Transactional
+	public void deleteProductCategory(Long categoryId) {
+		productCategoryDao.delete(categoryId);
+
+	}
 
 }
