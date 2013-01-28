@@ -2,7 +2,6 @@ package com.ibm.action;
 
 import java.util.List;
 
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
