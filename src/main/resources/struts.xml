@@ -30,7 +30,7 @@
 	
 
 	<!-- 全局配置包 -->
-	<package name="publicPackage" extends="struts-default">
+	<package name="publicPackage" extends="rest-default">
 
 		<!-- 全局错误处理 -->
 		<global-results>
