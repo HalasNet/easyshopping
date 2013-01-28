@@ -35,7 +35,7 @@ function del(id)
     <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
       <tr>
         <td width="10%">类别名称</td>
-        <td width="25%"><input  class="box_170" type="text" name="productCategory.categoryName"></td>
+        <td width="25%"><input  class="box_170" type="text" name="productCategory.categoryName" value="${categoryName}"></input> </td>
         <td width="65%">
           <input name="submit" type="submit" class="select_button" value="查 询" >
           <!--input name="reset" type="button" class="select_button" value="重 置" onclick="resetQuery();"--></td>

@@ -1,3 +1,4 @@
+<#import "/view/common.ftl" as pagination>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
@@ -41,8 +42,9 @@ dojo.ready(function() {
         <td width="10%">商品类别</td>
         <td width="25%">
         	<select name="categoryId">
+        		<option value="0">全部</option>
         		<#list categoryList as category>
-        			<option  value='${category.id}'>
+        			<option  value='${category.id}' <#if (category.id == categoryId)> selected</#if>>
         				${category.categoryName}
         			</option>
         		</#list>
@@ -53,7 +55,7 @@ dojo.ready(function() {
           <input name="reset" type="button" class="select_button" value="重 置" id="reset"></td>
       </tr>
     </table>
-    </form>
+    
   </div>
 </div>
 
@@ -107,11 +109,12 @@ dojo.ready(function() {
 					 <table width="99%" height="25" border="0" align="center" cellpadding="0" cellspacing="0">
                         <tr>
                           <td align="left"><input type="button" value="创 建" class="select_button" onClick="location.href='authority!viewCreate'">
-                          </td>			
+                          </td>
+                          <td align="fight"><@pagination.pagingToolbar action="product?queryText=${queryText!''}" /></td>			
                         </tr>
     </table>
 					  <!--fy end-->
-	
+</form>
   </div>
 </div>
 </body>
