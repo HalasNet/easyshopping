@@ -28,7 +28,7 @@ import com.opensymphony.xwork2.ModelDriven;
 @Namespace("/admin")
 @Results({ @Result(name = "index", location = "/view/auth/product-category-index.ftl") ,
 			@Result(name = "addProductCategoryView", location = "/view/auth/add_category.jsp"),
-			@Result(name = "addProductCategory", location = "/view/auth/operate_category_success.jsp")})
+			@Result(name = "operateProductCategory", location = "/view/auth/operate_category_success.jsp")})
 public class ProductCategoryAction extends ActionSupport implements
 		ModelDriven<Object> {
 	/**
@@ -59,7 +59,7 @@ public class ProductCategoryAction extends ActionSupport implements
 	public String addProductCategory()
 	{
 		productCategoryService.addProductCategory(productCategory);
-		return "addProductCategory";
+		return "operateProductCategory";
 	}
 
 	// 处理不带 id 参数的 GET 请求
