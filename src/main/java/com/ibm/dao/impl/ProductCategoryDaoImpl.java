@@ -16,15 +16,13 @@ public class ProductCategoryDaoImpl extends BaseHibernateDao<ProductCategory, Lo
 	/**
 	 * 根据类别名称获取产品类别
 	 */
-	public ProductCategory query(String categoryName) 
+	public List<ProductCategory> query(String categoryName) 
 	{
 		Query query = this.getSession().createQuery(
-				"from ProductCategory where categoryName=?");
-		query.setString(0, categoryName);
+				"from ProductCategory where categoryName like '%"+categoryName+"%'");
 
-		ProductCategory productCategory = (ProductCategory) query
-				.uniqueResult();
-		return productCategory;
+		List<ProductCategory> listProducts = query.list();
+		return listProducts;
 	}
 
 	/**

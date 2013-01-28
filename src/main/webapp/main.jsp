@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <!-- saved from url=(0037)http://2school.wygk.cn/admin/main.asp -->
 <HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>EasyShopping后台管理</TITLE>
@@ -95,7 +96,7 @@ width="100%" border=0>
           <TD width=28 
           background=../images/bg2.gif></TD>
           <TD background=../images/bg2.gif><SPAN 
-            style="FLOAT: left">欢迎你:<font color="red">${userName}</font>!</SPAN><SPAN 
+            style="FLOAT: left">欢迎你:<font color="red"><sec:authentication property="name"/></font>!</SPAN><SPAN 
             id=dvbbsannounce 
             style="FONT-WEIGHT: bold; FLOAT: left; WIDTH: 300px; COLOR: #c00"></SPAN></TD>
           <TD style="COLOR: #135294; TEXT-ALIGN: right" 
