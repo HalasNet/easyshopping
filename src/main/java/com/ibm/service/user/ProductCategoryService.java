@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ibm.dao.ProductCategoryDao;
 import com.ibm.dao.impl.UserDaoImpl;
+import com.ibm.domain.Authority;
 import com.ibm.domain.ProductCategory;
 
 @Service
@@ -39,6 +40,17 @@ public class ProductCategoryService{
 	@Transactional
 	public void addProductCategory(ProductCategory productCategory) {
 		productCategoryDao.save(productCategory);
+	}
+	
+	/**
+	 * 通过产品类别ID查询一条记录
+	 * @param id 类别ID
+	 * @return ProductCategory 产品类别实体
+	 */
+	@Transactional
+	public ProductCategory queryProductCategoryById(Long id) {
+		return productCategoryDao.get(id);
+
 	}
 
 }
