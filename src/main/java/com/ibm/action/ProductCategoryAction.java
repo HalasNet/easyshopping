@@ -56,7 +56,7 @@ public class ProductCategoryAction extends ActionSupport implements
 	/**
 	 * 类别名称-查询使用
 	 */
-	public String categoryName;
+	public String categoryName = "";
 	
 	/**
 	 * 结果码
