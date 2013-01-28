@@ -2,9 +2,6 @@ package com.ibm.action;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
@@ -18,6 +15,7 @@ import com.ibm.domain.ProductCategory;
 import com.ibm.service.product.ProductService;
 import com.ibm.service.user.ProductCategoryService;
 import com.ibm.util.Constants;
+import com.ibm.util.page.Pagination;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -122,8 +120,8 @@ public class ProductCategoryAction extends ActionSupport implements
 	 */
 	public String deleteProductCategory()
 	{
-		List<Product> listProducts = productService.search(categoryId, "", 0,
-				Constants.DEFAULT_PAGE_SIZE);
+		Pagination pagination = new Pagination(0,Constants.DEFAULT_PAGE_SIZE);
+		List<Product> listProducts = productService.search(categoryId, "", pagination);
 		if (null != listProducts && !listProducts.isEmpty()) 
 		{
 			errorMsg ="删除产品失败,该产品类别下有产品,请先删除产品!";
