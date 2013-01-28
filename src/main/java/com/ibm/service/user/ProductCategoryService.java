@@ -38,7 +38,7 @@ public class ProductCategoryService{
 	 * @return list 类别列表
 	 */
 	@Transactional(readOnly = true)
-	public List<ProductCategory> queryCategorys(String categoryName) {
+	public List<ProductCategory> queryCategorysByName(String categoryName) {
 		return productCategoryDao.query(categoryName);
 	}
 
