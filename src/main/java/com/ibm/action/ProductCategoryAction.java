@@ -121,6 +121,16 @@ public class ProductCategoryAction extends ActionSupport implements
 		
 		return "operateProductCategory";
 	}
+	
+	/**
+	 * 根据类别名称查询
+	 * @return String 查询是否成功
+	 */
+	public String queryCategoryByName()
+	{
+		productCategoryService.queryCategorysByName(productCategory.getCategoryName());
+		return "index";
+	}
 
 	// 处理不带 id 参数的 GET 请求
 	// 进入首页
