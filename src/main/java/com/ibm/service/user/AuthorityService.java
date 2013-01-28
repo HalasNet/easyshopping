@@ -24,7 +24,8 @@ import com.ibm.domain.Log;
 @Service
 @Transactional
 public class AuthorityService {
-
+	//缓存所有实体
+	private List<Authority> allAuths;
 	@Resource
 	private AuthorityDao authorityDao;
 
@@ -33,7 +34,9 @@ public class AuthorityService {
 
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public List<Authority> queryAll() {
-		return authorityDao.listAll();
+		if(allAuths == null)
+			allAuths = authorityDao.listAll();
+		return allAuths;
 	}
 
 	@Transactional
