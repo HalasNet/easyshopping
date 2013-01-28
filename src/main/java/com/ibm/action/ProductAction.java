@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.ibm.domain.Product;
+import com.ibm.domain.ProductCategory;
 import com.ibm.service.product.ProductService;
+import com.ibm.service.user.ProductCategoryService;
+import com.ibm.util.Constants;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -20,19 +23,25 @@ import com.opensymphony.xwork2.ModelDriven;
 @ParentPackage("publicPackage")
 @SuppressWarnings("serial")
 @Namespace("/admin")
-@Results({ @Result(name = "index", location = "/view/auth/product-index.ftl"),
-		@Result(name = "success", type = "redirectAction", params = {
-				"actionName", "product" },location = "/view/auth/product-index.ftl") })
+@Results({
+		@Result(name = "index", location = "/view/product/product-index.ftl"),
+		@Result(name = "success", location = "/view/product/product-index.ftl") })
 public class ProductAction extends ActionSupport implements ModelDriven<Object> {
 
 	@Autowired
 	private ProductService productService;
 
+	@Autowired
+	private ProductCategoryService productCategoryService;
+
 	// 封装 id 请求参数的属性
 	private long id;
 	private Product model = new Product();
 	private List<Product> list;
-	private String method;
+	private List<ProductCategory> categoryList;
+	private long categoryId;
+	private String productName;
+	private int pn;
 
 	// 获取 id 请求参数的方法
 	public void setId(long id) {
@@ -50,6 +59,7 @@ public class ProductAction extends ActionSupport implements ModelDriven<Object> 
 	// 处理不带 id 参数的 GET 请求
 	public HttpHeaders index() {
 		list = productService.getAll();
+		categoryList = productCategoryService.queryCategorys();
 		return new DefaultHttpHeaders("index").disableCaching();
 	}
 
@@ -92,6 +102,13 @@ public class ProductAction extends ActionSupport implements ModelDriven<Object> 
 		return "success";
 	}
 
+	public String search() {
+		list = productService.search(categoryId, model.getProductName(), pn,
+				Constants.DEFAULT_PAGE_SIZE);
+		categoryList = productCategoryService.queryCategorys();
+		return "success";
+	}
+
 	// 实现 ModelDriven 接口必须实现的 getModel 方法
 	public Object getModel() {
 		return (list != null ? list : model);
@@ -105,12 +122,36 @@ public class ProductAction extends ActionSupport implements ModelDriven<Object> 
 		this.list = list;
 	}
 
-	public String getMethod() {
-		return method;
+	public List<ProductCategory> getCategoryList() {
+		return categoryList;
 	}
 
-	public void setMethod(String method) {
-		this.method = method;
+	public void setCategoryList(List<ProductCategory> categoryList) {
+		this.categoryList = categoryList;
+	}
+
+	public long getCategoryId() {
+		return categoryId;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public int getPn() {
+		return pn;
+	}
+
+	public void setPn(int pn) {
+		this.pn = pn;
+	}
+
+	public void setCategoryId(long categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
 }
