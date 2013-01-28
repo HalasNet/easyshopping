@@ -21,11 +21,11 @@
 <div class="content_c">
   <div class="content_c_div">
 
-   <form id="authForm" action="product_category!addProductCategory" method="post" onsubmit="return checkSave();">
+   <form id="authForm" action="product_category!modifyProductCategory" method="post" onsubmit="return checkSave();">
     <table width="95%" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#d1d1d1">
             <tr bgcolor="#FFFFFF">
               <td bgcolor="#ebebea" align="right"><font color="red">*</font>产品类别名称： </td>
-              <td><input  class="box_170" type="text" name="productCategory.categoryName" id="categoryName" maxlength="20" value='<s:property value="productCategory.categoryName"/>'>
+              <td><input type='hidden' id='categoryId' name='categoryId' value='<s:property value="productCategory.id"/>'/><input  class="box_170" type="text" name="productCategory.categoryName" id="categoryName" maxlength="20" value='<s:property value="productCategory.categoryName"/>'>
               <!--  input type='hidden' id='authorityId' name='authorityId' /-->
               </td>
               <td bgcolor="#ebebea" align="right">
