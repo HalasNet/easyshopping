@@ -41,7 +41,7 @@
 function checkSave()
 {
 	var categoryName = document.getElementById("categoryName").value;
-	alert(categoryName);
+	//alert(categoryName);
    
    if(categoryName=="" || categoryName ==" " || categoryName == null)
    {
