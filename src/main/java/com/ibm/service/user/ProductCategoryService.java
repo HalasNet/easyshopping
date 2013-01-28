@@ -31,6 +31,16 @@ public class ProductCategoryService{
 	public List<ProductCategory> queryCategorys() {
 		return productCategoryDao.query();
 	}
+	
+	/**
+	 * 根据类别名称查询
+	 * @param categoryName 类别名称
+	 * @return list 类别列表
+	 */
+	@Transactional(readOnly = true)
+	public List<ProductCategory> queryCategorys(String categoryName) {
+		return productCategoryDao.query(categoryName);
+	}
 
 	/**
 	 * 增加产品类别
