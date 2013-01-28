@@ -34,7 +34,7 @@ public class PageUtil {
 	 * @return
 	 */
 	public static int getPageStart(int pageNumber, int pageSize) {
-		return (pageNumber - 1) * pageSize;
+		return pageNumber * pageSize;
 	}
 
 	/**
