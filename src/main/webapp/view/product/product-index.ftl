@@ -6,15 +6,17 @@
 <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/dojo.xd.js">
 </script>
 <script language="JavaScript" type="text/javascript">
-function resetQuery()
-{
-   location.href='authority';
-}
 
 dojo.ready(function() {
 	dojo.connect(dojo.byId("delete"),"click",function(e) {
-		dojo.attr(dojo.byId('productForm'),"action","product/"+dojo.attr(dojo.byId("delete"),"value")+"?_method=DELETE");
-		dojo.xhrPost({ form: "productForm" });
+		if (confirm('确定要删除吗?')){
+			dojo.attr(dojo.byId('productForm'),"action","product/"+dojo.attr(dojo.byId("delete"),"value")+"?_method=DELETE");
+			dojo.xhrPost({ form: "productForm" });
+		}
+	});
+	
+	dojo.connect(dojo.byId("reset"),"click",function(e) {
+		location.href='product';
 	});
 
 });
@@ -31,14 +33,24 @@ dojo.ready(function() {
 </div>
 <div class="content_c">
   <div class="content_c_div">
-  <form action="authority!view" method="post" id="productForm">
+  <form action="product!search" method="post" id="productForm">
     <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
       <tr>
         <td width="10%">商品名称</td>
         <td width="25%"><input  class="box_170" type="text" name="model.productName"></td>
-        <td width="65%">
+        <td width="10%">商品类别</td>
+        <td width="25%">
+        	<select name="categoryId">
+        		<#list categoryList as category>
+        			<option  value='${category.id}'>
+        				${category.categoryName}
+        			</option>
+        		</#list>
+        	</select>
+        </td>
+        <td width="30%">
           <input name="submit" type="submit" class="select_button" value="查 询" >
-          <input name="reset" type="button" class="select_button" value="重 置" onclick="resetQuery();"></td>
+          <input name="reset" type="button" class="select_button" value="重 置" id="reset"></td>
       </tr>
     </table>
     </form>
@@ -95,10 +107,7 @@ dojo.ready(function() {
 					 <table width="99%" height="25" border="0" align="center" cellpadding="0" cellspacing="0">
                         <tr>
                           <td align="left"><input type="button" value="创 建" class="select_button" onClick="location.href='authority!viewCreate'">
-                          </td>
-                          
-                         
-											
+                          </td>			
                         </tr>
     </table>
 					  <!--fy end-->

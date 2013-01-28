@@ -13,7 +13,7 @@ function del(id)
 {
 	if (confirm('确定要删除吗?'))
 	{
-		location.href='product_category!del?id=' + id;
+		location.href='product_category!deleteProductCategory?categoryId=' + id;
 	}
 }
 
@@ -31,14 +31,14 @@ function del(id)
 </div>
 <div class="content_c">
   <div class="content_c_div">
-  <form action="authority!view" method="post" >
+  <form action="product_category!queryCategoryByName" method="post" >
     <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
       <tr>
         <td width="10%">类别名称</td>
-        <td width="25%"><input  class="box_170" type="text" name="authority.name"></td>
+        <td width="25%"><input  class="box_170" type="text" name="productCategory.categoryName"></td>
         <td width="65%">
           <input name="submit" type="submit" class="select_button" value="查 询" >
-          <input name="reset" type="button" class="select_button" value="重 置" onclick="resetQuery();"></td>
+          <!--input name="reset" type="button" class="select_button" value="重 置" onclick="resetQuery();"--></td>
       </tr>
     </table>
     </form>
@@ -67,7 +67,7 @@ function del(id)
 								</TD>
 								
 								<TD height="15" align="center">
-									<a href='authority!viewModify?id=${category.id}'><img src="../images/icon_edit.gif" border="0" title="修改"></a>
+									<a href='product_category!modifyProductCategoryView?categoryId=${category.id}'><img src="../images/icon_edit.gif" border="0" title="修改"></a>
 								</TD>       
 								
 								<TD height="15" align="center">
