@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ibm.dao.ProductDao;
 import com.ibm.dao.impl.UserDaoImpl;
 import com.ibm.domain.Product;
+import com.ibm.util.page.Pagination;
 
 @Service
 @Transactional
@@ -40,9 +41,12 @@ public class ProductService {
 		productDao.delete(id);
 	}
 
-	public List<Product> search(Long categoryId, String productName, int pn,
-			int pageSize) {
-		return productDao.queryProductList(categoryId, productName, pn,
-				pageSize);
+	public List<Product> search(Long categoryId, String productName,
+			Pagination pagination) {
+		return productDao.queryProductList(categoryId, productName, pagination);
+	}
+	
+	public List<Product> queryProductsByCategoryIds(String categoryIds) {
+		return productDao.queryProductList(categoryIds);
 	}
 }

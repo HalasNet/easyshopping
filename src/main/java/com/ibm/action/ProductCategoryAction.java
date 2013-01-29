@@ -2,8 +2,6 @@ package com.ibm.action;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -18,6 +16,7 @@ import com.ibm.domain.ProductCategory;
 import com.ibm.service.product.ProductService;
 import com.ibm.service.user.ProductCategoryService;
 import com.ibm.util.Constants;
+import com.ibm.util.page.Pagination;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -78,7 +77,15 @@ public class ProductCategoryAction extends ActionSupport implements
 	 */
 	public String addProductCategory()
 	{
-		productCategoryService.addProductCategory(productCategory);
+		ProductCategory category = productCategoryService.queryCategoryByName(productCategory.getCategoryName());
+		if (null != category)
+		{
+			errorMsg ="该产品类别已经存在,请重新添加!";
+		}
+		else 
+		{			
+			productCategoryService.addProductCategory(productCategory);
+		}
 		return "operateProductCategory";
 	}
 	
@@ -114,15 +121,36 @@ public class ProductCategoryAction extends ActionSupport implements
 	 */
 	public String deleteProductCategory()
 	{
-		List<Product> listProducts = productService.search(categoryId, "", 0,
-				Constants.DEFAULT_PAGE_SIZE);
+		Pagination pagination = new Pagination(0,Constants.DEFAULT_PAGE_SIZE);
+		List<Product> listProducts = productService.search(categoryId, "", pagination);
 		if (null != listProducts && !listProducts.isEmpty()) 
 		{
-			errorMsg ="删除产品失败,该产品类别下有产品,请先删除产品!";
+			errorMsg ="删除失败,该产品类别下有产品,请先删除产品!";
 			return "operateProductCategory";
 		}
 		//删除产品类别
 		productCategoryService.deleteProductCategory(categoryId);
+		
+		return "operateProductCategory";
+	}
+	
+	
+	/**
+	 * 批量删除产品类别
+	 * @return 删除是否成功
+	 */
+	public String deleteBatchProductCategory()
+	{
+		String categoryIds = ServletActionContext.getRequest().getParameter("categoryIds");
+		
+		List<Product> listProducts = productService.queryProductsByCategoryIds(categoryIds);
+		if (null != listProducts && !listProducts.isEmpty()) 
+		{
+			errorMsg ="删除失败,产品类别下有产品,请先删除产品!";
+			return "operateProductCategory";
+		}
+		//批量删除产品类别
+		productCategoryService.deleteBatchProductCategory(categoryIds);
 		
 		return "operateProductCategory";
 	}
