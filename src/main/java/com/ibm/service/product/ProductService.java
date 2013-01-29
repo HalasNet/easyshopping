@@ -45,4 +45,8 @@ public class ProductService {
 			Pagination pagination) {
 		return productDao.queryProductList(categoryId, productName, pagination);
 	}
+	
+	public List<Product> queryProductsByCategoryIds(String categoryIds) {
+		return productDao.queryProductList(categoryIds);
+	}
 }
