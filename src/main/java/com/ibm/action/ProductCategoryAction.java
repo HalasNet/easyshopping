@@ -2,6 +2,7 @@ package com.ibm.action;
 
 import java.util.List;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
@@ -129,6 +130,27 @@ public class ProductCategoryAction extends ActionSupport implements
 		}
 		//删除产品类别
 		productCategoryService.deleteProductCategory(categoryId);
+		
+		return "operateProductCategory";
+	}
+	
+	
+	/**
+	 * 批量删除产品类别
+	 * @return 删除是否成功
+	 */
+	public String deleteBatchProductCategory()
+	{
+//		Pagination pagination = new Pagination(0,Constants.DEFAULT_PAGE_SIZE);
+//		List<Product> listProducts = productService.search(categoryId, "", pagination);
+//		if (null != listProducts && !listProducts.isEmpty()) 
+//		{
+//			errorMsg ="删除产品失败,该产品类别下有产品,请先删除产品!";
+//			return "operateProductCategory";
+//		}
+		String categoryIds = ServletActionContext.getRequest().getParameter("categoryIds");
+		//批量删除产品类别
+		productCategoryService.deleteBatchProductCategory(categoryIds);
 		
 		return "operateProductCategory";
 	}
