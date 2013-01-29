@@ -132,8 +132,7 @@ function deleteSelect()
  	else
  	{
  		var categoryIDs=ids.substr(0,ids.length-1);
- 		alert(categoryIDs);
- 		location.href='product_category!deleteBatchProductCategory?categoryId=' + categoryIDs;
+ 		location.href='product_category!deleteBatchProductCategory?categoryIds='+categoryIDs;
  		return false;
  	}
 }
