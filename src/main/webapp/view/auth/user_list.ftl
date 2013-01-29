@@ -102,7 +102,7 @@ function del(id)
                         </tr>
     </table>
 					  <!--fy end-->
-					  <!-- test git -->
+					  <!-- test git push not all -->
 	
   </div>
 </div>
