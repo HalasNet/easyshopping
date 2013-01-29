@@ -13,7 +13,7 @@ function del(id)
 {
 	if (confirm('确定要删除吗?'))
 	{
-		location.href='product_category!del?id=' + id;
+		location.href='product_category!deleteProductCategory?categoryId=' + id;
 	}
 }
 
@@ -31,14 +31,14 @@ function del(id)
 </div>
 <div class="content_c">
   <div class="content_c_div">
-  <form action="authority!view" method="post" >
+  <form action="product_category!queryCategoryByName" method="post" >
     <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
       <tr>
         <td width="10%">类别名称</td>
-        <td width="25%"><input  class="box_170" type="text" name="authority.name"></td>
+        <td width="25%"><input  class="box_170" type="text" name="productCategory.categoryName" value="${categoryName}"></input> </td>
         <td width="65%">
           <input name="submit" type="submit" class="select_button" value="查 询" >
-          <input name="reset" type="button" class="select_button" value="重 置" onclick="resetQuery();"></td>
+          <!--input name="reset" type="button" class="select_button" value="重 置" onclick="resetQuery();"--></td>
       </tr>
     </table>
     </form>
@@ -60,27 +60,36 @@ function del(id)
                           <td width="65%" align="center" class="td1"><img src="../images/normal_seq.gif"> 类别名称</td>
                           <td colspan="15" align="center" class="td1">操作</td>
                         </tr>
-                         <#list listCategory as category>
-							<TR bgcolor="#FFFFFF">
-								<TD height="15" align="center">
-									${category.categoryName}
-								</TD>
-								
-								<TD height="15" align="center">
-									<a href='authority!viewModify?id=${category.id}'><img src="../images/icon_edit.gif" border="0" title="修改"></a>
-								</TD>       
-								
-								<TD height="15" align="center">
-									<a href='javascript:del("${category.id}")'> <img src="../images/icon_del.gif" border="0" title="删除"></a>
-								</TD>
-
+                        <#if listCategory?size == 0>
+                        	
+                        	<TR bgcolor="#FFFFFF">
+									<TD height="15" align="center" colspan="3">
+										对不起，没有查询出相关的产品类别
+									</TD>
 							</TR>
-					 	</#list>
+                        <#else>
+                        	<#list listCategory as category>
+								<TR bgcolor="#FFFFFF">
+									<TD height="15" align="center">
+										${category.categoryName}
+									</TD>
+									
+									<TD height="15" align="center">
+										<a href='product_category!modifyProductCategoryView?categoryId=${category.id}'><img src="../images/icon_edit.gif" border="0" title="修改"></a>
+									</TD>       
+									
+									<TD height="15" align="center">
+										<a href='javascript:del("${category.id}")'> <img src="../images/icon_del.gif" border="0" title="删除"></a>
+									</TD>
+	
+								</TR>
+					 		</#list>
+                        </#if>
     </table>
 					  <!--fy start-->
 					 <table width="99%" height="25" border="0" align="center" cellpadding="0" cellspacing="0">
                         <tr>
-                          <td align="left"><input type="button" value="创 建" class="select_button" onClick="location.href='authority!viewCreate'">
+                          <td align="left"><input type="button" value="创 建" class="select_button" onClick="location.href='product_category!addProductCategoryView'">
                           </td>
                           
                          

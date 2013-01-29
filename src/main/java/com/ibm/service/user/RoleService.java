@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ibm.dao.RoleDao;
+import com.ibm.domain.Authority;
 import com.ibm.domain.Role;
 
 @Service
@@ -26,6 +27,16 @@ public class RoleService {
 	}
 
 	@Transactional
+	public void save(Role role) {
+		roleDao.save(role);
+	}
+	
+	@Transactional
+	public void update(Role role) {
+		roleDao.update(role);
+	}
+
+	@Transactional
 	public void saveOrUpdate(Role role) {
 		roleDao.saveOrUpdate(role);
 	}
@@ -33,6 +44,11 @@ public class RoleService {
 	@Transactional
 	public void remove(Long id) {
 		roleDao.delete(id);
+	}
+	
+	@Transactional
+	public List<Role> getRoleByName(String name) {
+		return roleDao.getRoleByName(name);
 	}
 
 }

@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>PFMS</title>
+<title>EasyShopping</title>
 <link href="../styles/gb2312.css" rel="stylesheet" type="text/css">
 <%@  taglib prefix="s" uri="/struts-tags"%>
 <script type="text/javascript" src="js/jquery.js"></script>
