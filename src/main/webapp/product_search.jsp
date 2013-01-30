@@ -7,11 +7,38 @@
 <html>
 <head>
 <title>easyshopping product search</title>
+<script type="text/javascript" src="js/autocomplete/lib/jquery.js"></script>
+<script type='text/javascript' src='js/autocomplete/lib/jquery.bgiframe.min.js'></script>
+<script type='text/javascript' src='js/autocomplete/lib/jquery.ajaxQueue.js'></script>
+<script type='text/javascript' src='js/autocomplete/lib/thickbox-compressed.js'></script>
+<script type='text/javascript' src='js/autocomplete/jquery.autocomplete.js'></script>
+<script type='text/javascript' src='js/autocomplete/localdata.js'></script>
+<link rel="stylesheet" type="text/css" href="js/autocomplete/jquery.autocomplete.css" />
+<link rel="stylesheet" type="text/css" href="js/autocomplete/lib/thickbox.css" />
 </head>
+<script type="text/javascript">
+$().ready(function() {
+	
+	$("#kw").autocomplete('./search!autoComplete', {
+		minChars: 0,
+		width: 155,
+		matchContains: true,
+		autoFill: false,
+		formatItem: function(data, i, total) {
+			return data[0];
+		}, 
+		formatResult: function(row) { 
+			return row; 
+		} 
+	}).result(function(event, item) { 
+		$("#signupform").submit();
+	}); 
+});
 
+</script>
 <body>
 <h3><a href="./search!crud">生成索引</a></h3>
-<form action="./search!search" method="post">
+<form  id="signupform" action="./search!search" method="post" >
 <input name="kw" id="kw" class="s_ipt" value="${ kw }" maxlength="100" autocomplete="off">
 <input type="submit" id="su" value="搜一下">
 </form>
