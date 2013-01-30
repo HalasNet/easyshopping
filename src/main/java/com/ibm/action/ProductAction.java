@@ -1,9 +1,8 @@
 package com.ibm.action;
 
 import java.util.List;
-import java.util.Map;
 
-import org.apache.struts2.ServletActionContext;
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
@@ -27,8 +26,8 @@ import com.opensymphony.xwork2.ModelDriven;
 @SuppressWarnings("serial")
 @Namespace("/admin")
 @Results({
-		@Result(name = "index", location = "/view/product/product-index.ftl"),
-		@Result(name = "success", location = "/view/product/product-index.ftl") })
+		@Result(name = "index",location = "/view/product/product-index.ftl"),
+		@Result(name = "success",location = "/view/product/product-index.ftl") })
 public class ProductAction extends ActionSupport implements ModelDriven<Object> {
 
 	@Autowired
@@ -44,14 +43,8 @@ public class ProductAction extends ActionSupport implements ModelDriven<Object> 
 	private List<ProductCategory> categoryList;
 	private long categoryId;
 	private String productName;
-	private Pagination pagination;
-	private int total;
-	private int curPage;
-	private int prePage;
-	private int nextPage;
-	private int totalPage;
-	private int startNum;
-	private int endNum;
+	private Pagination pager = new Pagination();
+	private int curPage=1;
 
 	// 获取 id 请求参数的方法
 	public void setId(long id) {
@@ -65,21 +58,17 @@ public class ProductAction extends ActionSupport implements ModelDriven<Object> 
 	public long getId() {
 		return this.id;
 	}
+	
+	public void initCategory(){
+		categoryList = productCategoryService.queryCategorys();
+	}
 
 	// 处理不带 id 参数的 GET 请求
 	public HttpHeaders index() {
-		pagination = new Pagination(curPage, Constants.DEFAULT_PAGE_SIZE);
-		list = productService.search(categoryId, model.getProductName(),
-				pagination);
-		pagination = pagination.getPage();
-		categoryList = productCategoryService.queryCategorys();
-		total = pagination.getTotal();
-		curPage = pagination.getCurPage();
-		prePage = pagination.getPrePage();
-		nextPage = pagination.getNextPage();
-		totalPage = pagination.getTotalPage();
-		startNum = pagination.getStartNum();
-		endNum = pagination.getEndNum();
+		pager = new Pagination(curPage, Constants.DEFAULT_PAGE_SIZE);
+		list = productService.search(categoryId, model.getProductName(), pager);
+		pager = pager.getPage();
+		initCategory();
 		return new DefaultHttpHeaders("index").disableCaching();
 	}
 
@@ -119,15 +108,15 @@ public class ProductAction extends ActionSupport implements ModelDriven<Object> 
 	// 处理带 id 参数的 DELETE 请求
 	public String destroy() {
 		productService.remove(id);
+		initCategory();
 		return "success";
 	}
 
 	public String search() {
-		pagination = new Pagination(curPage, Constants.DEFAULT_PAGE_SIZE);
-		list = productService.search(categoryId, model.getProductName(),
-				pagination);
-		pagination = pagination.getPage();
-		categoryList = productCategoryService.queryCategorys();
+		pager = new Pagination(curPage, Constants.DEFAULT_PAGE_SIZE);
+		list = productService.search(categoryId, model.getProductName(), pager);
+		pager = pager.getPage();
+		initCategory();
 		return "success";
 	}
 
@@ -168,20 +157,12 @@ public class ProductAction extends ActionSupport implements ModelDriven<Object> 
 		this.productName = productName;
 	}
 
-	public Pagination getPagination() {
-		return pagination;
+	public Pagination getPager() {
+		return pager;
 	}
 
-	public void setPagination(Pagination pagination) {
-		this.pagination = pagination;
-	}
-
-	public int getTotal() {
-		return total;
-	}
-
-	public void setTotal(int total) {
-		this.total = total;
+	public void setPager(Pagination pager) {
+		this.pager = pager;
 	}
 
 	public int getCurPage() {
@@ -191,45 +172,5 @@ public class ProductAction extends ActionSupport implements ModelDriven<Object> 
 	public void setCurPage(int curPage) {
 		this.curPage = curPage;
 	}
-
-	public int getPrePage() {
-		return prePage;
-	}
-
-	public void setPrePage(int prePage) {
-		this.prePage = prePage;
-	}
-
-	public int getNextPage() {
-		return nextPage;
-	}
-
-	public void setNextPage(int nextPage) {
-		this.nextPage = nextPage;
-	}
-
-	public int getTotalPage() {
-		return totalPage;
-	}
-
-	public void setTotalPage(int totalPage) {
-		this.totalPage = totalPage;
-	}
-
-	public int getStartNum() {
-		return startNum;
-	}
-
-	public void setStartNum(int startNum) {
-		this.startNum = startNum;
-	}
-
-	public int getEndNum() {
-		return endNum;
-	}
-
-	public void setEndNum(int endNum) {
-		this.endNum = endNum;
-	}
-
+	
 }
