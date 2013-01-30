@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ibm.dao.ProductIndexDao;
 import com.ibm.domain.ProductIndex;
+import com.ibm.util.page.Pagination;
 
 @Transactional
 @Service
@@ -34,6 +35,22 @@ public class ProductSearchService {
 			String endDate) throws Exception {
 		return productIndexDao.QueryByIndex(words, startDate, endDate);
 	}
+	
+	public List<ProductIndex> search(String keyWord, Pagination pagination) throws Exception {
+		return productIndexDao.search(keyWord, pagination);
+	}
+	
+	public List<ProductIndex> queryAutoComplete(String keyWord) throws Exception {
+		return productIndexDao.queryAutoComplete(keyWord);
+	}
 
+	
+	public void indexTest() {
+		ProductIndex pi = productIndexDao.get(1L);
+		pi.setProductPrice("6000");
+		pi.setProductName("DELL");
+		productIndexDao.saveOrUpdate(pi);
+		System.out.println(pi);
+	}
 
 }

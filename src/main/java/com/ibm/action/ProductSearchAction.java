@@ -1,7 +1,15 @@
 package com.ibm.action;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
@@ -14,12 +22,13 @@ import com.ibm.domain.ProductIndex;
 import com.ibm.service.search.ProductSearchService;
 import com.ibm.util.Constants;
 import com.ibm.util.page.Pagination;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 @SuppressWarnings("serial")
 @Controller("searchTestAction")
 @ParentPackage("struts-default")
-@Action(value = "/search", results = { @Result(name = "success", location = "/view/search/product_search.jsp") })
+@Action(value = "/search", results = { @Result(name = "success", location = "/product_search.jsp") })
 public class ProductSearchAction extends ActionSupport {
 
 	private static final Logger logger = LoggerFactory
@@ -64,12 +73,49 @@ public class ProductSearchAction extends ActionSupport {
 		return SUCCESS;
 	}
 
+	public String autoComplete() {
+		HttpServletRequest request = (HttpServletRequest) ActionContext
+				.getContext().get(ServletActionContext.HTTP_REQUEST);
+		HttpServletResponse response = (HttpServletResponse) ActionContext
+				.getContext().get(ServletActionContext.HTTP_RESPONSE);
+		String keyword = request.getParameter("q");
+		List<Object> list = new ArrayList<Object>(); 
+		StringBuffer value= new StringBuffer();
+		try {
+			keyword = URLDecoder.decode(keyword,"UTF-8");
+			if (keyword != null && !keyword.equals("")){
+				this.productIndexs = productSearchService.queryAutoComplete(keyword);
+			}
+			for(int i = 0; i < productIndexs.size(); i++) {
+				ProductIndex p = productIndexs.get(i);
+				value.append(p.getProductName() + "\n");
+				list.add(p.getProductName());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		PrintWriter out = null;
+        try {
+    		out = response.getWriter();
+    		response.setContentType("text/json; charset=UTF-8");
+    		out.print(value);
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+        	e.printStackTrace();
+        } finally {
+            if (out != null) {
+                out.flush();
+                out.close();
+            }
+        }
+		return null;
+	}
 	public String test() {
 		productSearchService.indexTest();
 		return SUCCESS;
 	}
 
-	
 	public List<ProductIndex> getProductIndexs() {
 		return productIndexs;
 	}
