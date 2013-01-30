@@ -2,6 +2,7 @@ package com.ibm.action;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
@@ -19,7 +20,8 @@ import com.opensymphony.xwork2.ActionSupport;
 @ParentPackage("publicPackage")  
 @SuppressWarnings("serial")
 @Controller("userAction")
-@Results({ @Result(name = "list", location = "/list.jsp"),
+@Results({ @Result(name = "list", location = "/view/auth/user_list.ftl"),
+		@Result(name = "user_add", location = "/view/auth/user_add.jsp"),
 		@Result(name = "delete", location = "user-delete.ftl") })
 public class UserAction extends ActionSupport {
 	
@@ -50,7 +52,7 @@ public class UserAction extends ActionSupport {
 			return "error";
 		}
 	}
-
+	
 	public String add() {
 		User user = new User();
 		user.setUserName(userName);
@@ -59,11 +61,33 @@ public class UserAction extends ActionSupport {
 		return "success";
 	}
 
+	public String save(){
+		if(user == null || StringUtils.isBlank(user.getUserName()))
+			return ERROR;
+		user.setPassword("111111");
+		userService.saveUser(user);
+		logger.info("save user complete");
+		return index();
+	}
 	public String index() {
 		users = userService.listAll();
 		return "list";
 	}
-
+	public String view(){
+		String name = user.getUsername();
+		if(StringUtils.isBlank(name)){
+			return "success";
+		}
+		users = userService.listAll();
+		if (users != null) {
+			return "success";
+		} else {
+			return "error";
+		}
+	}
+	public String register(){
+		return "user_add";
+	}
 	public String delete() {
 		return "delete";
 	}

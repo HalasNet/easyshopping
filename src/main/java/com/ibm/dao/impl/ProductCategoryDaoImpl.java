@@ -43,5 +43,15 @@ public class ProductCategoryDaoImpl extends BaseHibernateDao<ProductCategory, Lo
 	{
 		return this.listAll();
 	}
+
+	/**
+	 * 批量删除产品类别
+	 */
+	@Override
+	public void deleteBatchProductCategory(String categoryIds) {
+		Query query = this.getSession().createQuery(
+				"delete from ProductCategory where id in ("+categoryIds+")");
+		query.executeUpdate();
+	}
 	
 }

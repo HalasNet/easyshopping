@@ -17,8 +17,6 @@
 				<s:else>
 					<s:property value="errorMsg"/>
 				</s:else>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<input  type="button" class="select_button"  onclick="history.go(-1)" value="返 回">
               </td>
             </tr>	
     </table>

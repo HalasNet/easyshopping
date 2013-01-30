@@ -4,6 +4,10 @@
 <html>
   <head>
       <title>easyshopping</title>
+      <script type="text/javascript">
+      	if(window != window.top)
+      		window.top.location.href = window.location.href;
+      </script>
   </head>
     
   <body>

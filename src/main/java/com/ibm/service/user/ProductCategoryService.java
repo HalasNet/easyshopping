@@ -93,5 +93,16 @@ public class ProductCategoryService{
 		productCategoryDao.delete(categoryId);
 
 	}
+	
+	/**
+	 * 批量删除产品类别
+	 * @param  categoryId Long类别Id
+	 * @void
+	 */
+	@Transactional
+	public void deleteBatchProductCategory(String categoryIds)
+	{
+		productCategoryDao.deleteBatchProductCategory(categoryIds);
+	}
 
 }

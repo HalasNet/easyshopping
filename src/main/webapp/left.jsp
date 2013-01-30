@@ -19,7 +19,7 @@ href="styles/style_left.css" type=text/css rel=stylesheet>
             target=frmright>权限管理</A> </LI>
             <LI><A href="admin/role" 
             target=frmright>角色管理</A> </LI>
-            <LI><A href="#" 
+            <LI><A href="admin/user" 
             target=frmright>人员管理</A> </LI>
             <LI><A href="admin/product" 
             target=frmright>商品管理</A> </LI>
