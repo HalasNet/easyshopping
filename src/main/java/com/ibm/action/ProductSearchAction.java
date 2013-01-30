@@ -12,11 +12,14 @@ import org.springframework.stereotype.Controller;
 
 import com.ibm.domain.ProductIndex;
 import com.ibm.service.search.ProductSearchService;
+import com.ibm.util.Constants;
+import com.ibm.util.page.Pagination;
 import com.opensymphony.xwork2.ActionSupport;
 
 @SuppressWarnings("serial")
 @Controller("searchTestAction")
 @ParentPackage("struts-default")
+@Action(value = "/search", results = { @Result(name = "success", location = "/view/search/product_search.jsp") })
 public class ProductSearchAction extends ActionSupport {
 
 	private static final Logger logger = LoggerFactory
@@ -27,9 +30,16 @@ public class ProductSearchAction extends ActionSupport {
 	
 	private List<ProductIndex> productIndexs;
 	
+	
+	private Pagination pagination;
+	
+	private int total;
+	private int curPage;
+
+	
 	private String kw;
 
-	@Action(value = "/search", results = { @Result(name = SUCCESS, location = "/product_search.jsp") })
+	
 	public String index() {
 		return SUCCESS;
 	}
@@ -42,7 +52,11 @@ public class ProductSearchAction extends ActionSupport {
 	public String search() {
 		try {
 			if (this.kw != null && !this.kw.equals("")){
-				this.productIndexs = productSearchService.QueryByIndex(this.kw, "", "");
+				pagination = new Pagination(curPage, Constants.DEFAULT_PAGE_SIZE);
+				this.productIndexs = productSearchService.search(kw, pagination);
+				this.pagination = pagination.getPage();
+				this.total = pagination.getTotal();
+				this.curPage = pagination.getCurPage();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -50,8 +64,12 @@ public class ProductSearchAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	
+	public String test() {
+		productSearchService.indexTest();
+		return SUCCESS;
+	}
 
+	
 	public List<ProductIndex> getProductIndexs() {
 		return productIndexs;
 	}
@@ -67,5 +85,32 @@ public class ProductSearchAction extends ActionSupport {
 	public void setKw(String kw) {
 		this.kw = kw;
 	}
+
+	public Pagination getPagination() {
+		return pagination;
+	}
+
+	public void setPagination(Pagination pagination) {
+		this.pagination = pagination;
+	}
+
+	public int getCurPage() {
+		return curPage;
+	}
+
+	public void setCurPage(int curPage) {
+		this.curPage = curPage;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
+
+
 
 }
