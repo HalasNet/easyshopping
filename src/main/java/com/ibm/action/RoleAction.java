@@ -90,7 +90,7 @@ public class RoleAction extends ActionSupport implements ModelDriven<Object> {
 	 * @return
 	 */
 	public String viewCreate() {
-		authorityList = authorityService.queryAll();
+		authorityList = authorityService.getAuthorityByName("");
 		return "roleview";
 	}
 
@@ -123,7 +123,7 @@ public class RoleAction extends ActionSupport implements ModelDriven<Object> {
 	// 处理带 id 参数、且指定操作 edit 资源的 GET 请求
 	// 进入编辑页面 (role-edit.jsp)
 	public String edit() {
-		authorityList = authorityService.queryAll();
+		authorityList = authorityService.getAuthorityByName("");
 		authTreeList = new ArrayList<AuthTree>();
 		role = RoleService.get(roleId);
 		for (Authority auth : authorityList) {
