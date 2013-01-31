@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.index.Term;
+import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.BooleanClause.Occur;
@@ -13,6 +15,7 @@ import org.apache.lucene.search.Filter;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.QueryWrapperFilter;
 import org.apache.lucene.search.TermRangeQuery;
+import org.apache.lucene.search.WildcardQuery;
 import org.apache.lucene.search.highlight.Formatter;
 import org.apache.lucene.search.highlight.Highlighter;
 import org.apache.lucene.search.highlight.QueryScorer;
@@ -33,6 +36,7 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
 import com.ibm.dao.BaseHibernateDao;
 import com.ibm.dao.ProductIndexDao;
 import com.ibm.domain.ProductIndex;
+import com.ibm.util.page.Pagination;
 
 @Repository("productIndexDao")
 public class ProductIndexDaoImpl extends BaseHibernateDao<ProductIndex, Long>
@@ -74,6 +78,11 @@ public class ProductIndexDaoImpl extends BaseHibernateDao<ProductIndex, Long>
 	@Override
 	public List<ProductIndex> QueryByIndex(String words, String startDate,
 			String endDate) throws Exception {
+		
+		int page = 1;
+		int pageSize = 2;
+		int firstResult = (page -1) * pageSize;
+		
 		FullTextSession fullTextSession = Search.getFullTextSession(this
 				.getSession());
 
@@ -130,8 +139,15 @@ public class ProductIndexDaoImpl extends BaseHibernateDao<ProductIndex, Long>
 					bQueryForFilter));
 			fullTextQuery.setFilter(filter);
 		}
+		
+		fullTextQuery.setFirstResult(firstResult);
+		fullTextQuery.setMaxResults(pageSize);
+		
+		int count = fullTextQuery.getResultSize();
+		System.out.println("the result count is :" + count);
 
 		List<ProductIndex> result = fullTextQuery.list();
+		
 		String findResult;
 
 		// 根据上边已经写好的query封装出一个查询计分器
@@ -152,6 +168,119 @@ public class ProductIndexDaoImpl extends BaseHibernateDao<ProductIndex, Long>
 					text);
 			product.setFindResult(findResult);
 		}
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ProductIndex> search(String keyWord, Pagination pagination) throws Exception {
+
+		int pageSize = pagination.getPageSize();
+		int firstResult = pagination.getCurPage() * pageSize;
+		
+		FullTextSession fullTextSession = Search.getFullTextSession(this
+				.getSession());
+
+		/*
+		 * Query IKQuery = IKQueryParser.parseMultiField(new String[] {
+		 * "proTitle", "proDescn" }, new String[] { words, words }, new
+		 * BooleanClause.Occur[] { Occur.SHOULD, Occur.SHOULD });
+		 * 
+		 * Query luceneQuery = MultiFieldQueryParser.parse(new String[] { words,
+		 * words }, new String[] { "pro_title", "pro_descn" }, new
+		 * BooleanClause.Occur[] { Occur.SHOULD, Occur.SHOULD }, new
+		 * StandardAnalyzer());
+		 */
+		BooleanQuery bQuery = new BooleanQuery();
+		Analyzer analyzer = new IKAnalyzer();
+		// 设置对域采用的某种分词器的QueryParser对象
+		QueryParser qp;
+		// 设置了关键字的查询您对象
+		// Query q;
+
+		qp = new QueryParser(Version.LUCENE_36, "productName", analyzer);
+		qp.setDefaultOperator(QueryParser.AND_OPERATOR);
+		Query q1 = qp.parse(keyWord);
+		q1.setBoost(1.5f);
+		bQuery.add(q1, Occur.SHOULD);
+
+		qp = new QueryParser(Version.LUCENE_36, "categoryName", analyzer);
+		qp.setDefaultOperator(QueryParser.AND_OPERATOR);
+		Query q2 = qp.parse(keyWord);
+		q2.setBoost(1.0f);
+		bQuery.add(q2, Occur.SHOULD);
+
+
+		qp = new MultiFieldQueryParser(Version.LUCENE_36, new String[] { "productName", "categoryName" }, analyzer);
+		qp.setDefaultOperator(QueryParser.AND_OPERATOR);
+		Query q3 = qp.parse(keyWord);
+		q3.setBoost(1.0f);
+		bQuery.add(q3, Occur.SHOULD);
+		
+		
+		FullTextQuery fullTextQuery = fullTextSession.createFullTextQuery(
+				bQuery, ProductIndex.class);
+
+
+
+
+		
+		fullTextQuery.setFirstResult(firstResult);
+		fullTextQuery.setMaxResults(pageSize);
+		
+		int count = fullTextQuery.getResultSize();
+		pagination.setTotal(count);
+		System.out.println("the result count is :" + count);
+
+		List<ProductIndex> result = fullTextQuery.list();
+		
+		String findResult;
+
+		// 根据上边已经写好的query封装出一个查询计分器
+		QueryScorer qs1 = new QueryScorer(q1);
+
+		// 设置高亮的模板，其实就是在关键字两边加一对html的格式标签，下面是最基本的加粗。
+		Formatter formatter = new SimpleHTMLFormatter("<b>", "</b>");
+
+		Highlighter highlighter1 = new Highlighter(formatter, qs1);
+		String text;
+
+		// 下面通过将上面根据关键字，过滤条件和权重排序等找出的结果集做一次循环，进行高亮，把高亮后得到的
+
+		// 一个字符串，封装如每个实体类中的一个额外字段，方便在页面输出。
+		for (ProductIndex product : result) {
+			text = product.getProductName();
+			findResult = highlighter1.getBestFragment(analyzer, "productName",
+					text);
+			product.setFindResult(findResult);
+		}
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ProductIndex> queryAutoComplete(String keyWord) throws Exception {
+
+		
+		FullTextSession fullTextSession = Search.getFullTextSession(this
+				.getSession());
+		
+		 WildcardQuery wq = null;
+		 wq = new WildcardQuery(new Term("productName",keyWord+"*"));
+		
+		
+		FullTextQuery fullTextQuery = fullTextSession.createFullTextQuery(
+				wq, ProductIndex.class);
+
+		fullTextQuery.setFirstResult(0);
+		fullTextQuery.setMaxResults(10);
+		
+		int count = fullTextQuery.getResultSize();
+		System.out.println("the result count is :" + count);
+
+		List<ProductIndex> result = fullTextQuery.list();
+
+
 		return result;
 	}
 

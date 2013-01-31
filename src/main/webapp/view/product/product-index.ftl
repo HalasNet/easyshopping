@@ -1,3 +1,4 @@
+<#assign s=JspTaglibs["/WEB-INF/struts-tags.tld"]>
 <#import "/view/common.ftl" as pagination>
 <html>
 <head>
@@ -18,6 +19,11 @@ dojo.ready(function() {
 	
 	dojo.connect(dojo.byId("reset"),"click",function(e) {
 		location.href='product';
+	});
+	
+	dojo.connect(dojo.byId("submit"),"click",function(e) {
+		dojo.attr(dojo.byId("curPage"),"value",0);
+        dojo.xhrPost({ form:dojo.attr(dojo.byId("pageFormId"),"value")});
 	});
 
 });
@@ -51,7 +57,7 @@ dojo.ready(function() {
         	</select>
         </td>
         <td width="30%">
-          <input name="submit" type="submit" class="select_button" value="查 询" >
+          <input name="submit" type="button" class="select_button" value="查 询" id="submit">
           <input name="reset" type="button" class="select_button" value="重 置" id="reset"></td>
       </tr>
     </table>
@@ -110,10 +116,12 @@ dojo.ready(function() {
                         <tr>
                           <td align="left"><input type="button" value="创 建" class="select_button" onClick="location.href='authority!viewCreate'">
                           </td>
-                          <td align="fight"><@pagination.pagingToolbar action="product?queryText=${queryText!''}" /></td>			
+                          <td align="fight">
+                          <@pagination.pagingToolbar formId="productForm" />
+                          </td>			
                         </tr>
     </table>
-					  <!--fy end-->
+					  <!--fy end                           -->
 </form>
   </div>
 </div>
