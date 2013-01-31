@@ -1,6 +1,10 @@
 package com.ibm.action;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
@@ -13,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.ibm.dao.impl.UserDaoImpl;
+import com.ibm.domain.Role;
 import com.ibm.domain.User;
+import com.ibm.service.user.RoleService;
 import com.ibm.service.user.UserService;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -21,7 +27,10 @@ import com.opensymphony.xwork2.ActionSupport;
 @SuppressWarnings("serial")
 @Controller("userAction")
 @Results({ @Result(name = "list", location = "/view/auth/user_list.ftl"),
+		@Result(name = "asignRole", location = "/view/auth/user_asignRole.ftl"),
 		@Result(name = "user_add", location = "/view/auth/user_add.jsp"),
+		@Result(name = "redirectUser", type = "redirectAction", params = {
+				"actionName", "user" }),
 		@Result(name = "delete", location = "user-delete.ftl") })
 public class UserAction extends ActionSupport {
 	
@@ -38,8 +47,14 @@ public class UserAction extends ActionSupport {
 
 	private User user;
 
+	private List<Role> roles;
+	
+	private Long[] ids;
+	
 	@Autowired
 	private UserService userService;
+	@Resource
+	private RoleService roleService;
 
 	@Action(results = {
 			@Result(name = "success", location = "/main.jsp"),
@@ -88,6 +103,34 @@ public class UserAction extends ActionSupport {
 	public String register(){
 		return "user_add";
 	}
+	/**
+	 * 分配角色
+	 * @return
+	 */
+	public String asignRole(){
+		roles = roleService.getAll();
+		users = userService.queryUserByIds(ids);
+		return "asignRole";
+	}
+	
+	public String saveRole(){
+		System.out.println(users);
+		if(users!=null && !users.isEmpty()){
+			Set<Role> realRoles = new HashSet<Role>();
+			if(roles!=null && !roles.isEmpty())
+				for(Role r : roles){
+					if(r!=null)
+					realRoles.add(r);
+				}
+			for(User u : users){
+				u = userService.getUser(u.getId());
+				u.setRoles(realRoles);
+				userService.update(u);
+			}
+		}
+		return "redirectUser";
+	}
+	
 	public String delete() {
 		return "delete";
 	}
@@ -136,4 +179,21 @@ public class UserAction extends ActionSupport {
 		return user;
 	}
 
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
+	public Long[] getIds() {
+		return ids;
+	}
+
+	public void setIds(Long[] ids) {
+		this.ids = ids;
+	}
+
+	
 }
