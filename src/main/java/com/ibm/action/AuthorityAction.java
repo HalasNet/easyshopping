@@ -30,7 +30,7 @@ public class AuthorityAction extends ActionSupport {
 	private List<Authority> list;
 
 	public String index() {
-		list = authorityService.queryAll();
+		list = authorityService.getAuthorityByName("");
 		if (list != null) {
 			return "success";
 		} else {
