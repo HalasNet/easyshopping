@@ -1,5 +1,8 @@
 package com.ibm.dao.impl;
 
+import java.util.Collection;
+import java.util.List;
+
 import org.hibernate.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +35,13 @@ public class UserDaoImpl extends BaseHibernateDao<User, Long> implements
 		logger.info("execute UserDaoImpl method getUserByName()");
 		String hql = "from User where userName = ?";
 		return unique(hql, username);
+	}
+
+	@Override@SuppressWarnings("unchecked")
+	public List<User> queryUserByIds(Long[] ids) {
+		String hql = "from User where id in (:ids)";
+		logger.info(hql+" with parameter :"+ids);
+		return getSession().createQuery(hql).setParameterList("ids", ids).list();
 	}
 
 }

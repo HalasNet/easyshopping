@@ -41,13 +41,13 @@ public class RoleAction extends ActionSupport implements ModelDriven<Object> {
 	private Role model = new Role();
 
 	private Role role;
-	
+
 	private AuthorityService authorityService;
-	
+
 	private List<Authority> authorityList;
-	
+
 	private List<AuthTree> authTreeList;
-	
+
 	private String authorityStr;
 
 	public Role getRole() {
@@ -90,7 +90,7 @@ public class RoleAction extends ActionSupport implements ModelDriven<Object> {
 	 * @return
 	 */
 	public String viewCreate() {
-		authorityList = authorityService.queryAll();
+		authorityList = authorityService.getAuthorityByName("");
 		return "roleview";
 	}
 
@@ -104,7 +104,7 @@ public class RoleAction extends ActionSupport implements ModelDriven<Object> {
 	public HttpHeaders create() {
 		Set<Authority> authorities = new HashSet<Authority>();
 		String[] idarr = authorityStr.split(":");
-		for(String id:idarr){
+		for (String id : idarr) {
 			Authority authority = new Authority();
 			authority.setId(Long.parseLong(id));
 			authorities.add(authority);
@@ -123,24 +123,24 @@ public class RoleAction extends ActionSupport implements ModelDriven<Object> {
 	// 处理带 id 参数、且指定操作 edit 资源的 GET 请求
 	// 进入编辑页面 (role-edit.jsp)
 	public String edit() {
-		authorityList = authorityService.queryAll();
+		authorityList = authorityService.getAuthorityByName("");
 		authTreeList = new ArrayList<AuthTree>();
 		role = RoleService.get(roleId);
-		for(Authority auth:authorityList){
+		for (Authority auth : authorityList) {
 			Long id = auth.getId();
 			AuthTree authTree = new AuthTree();
 			authTree.setAuthority(auth);
-			for(Authority roleAuth : role.getAuthorities()){
-				if(id == roleAuth.getId()){
+			for (Authority roleAuth : role.getAuthorities()) {
+				if (id == roleAuth.getId()) {
 					authTree.setIsChecked("true");
 				}
 			}
-			if(StringUtils.isBlank(authTree.getIsChecked())){
+			if (StringUtils.isBlank(authTree.getIsChecked())) {
 				authTree.setIsChecked("");
 			}
 			authTreeList.add(authTree);
 		}
-		
+
 		return "edit";
 	}
 
@@ -148,10 +148,12 @@ public class RoleAction extends ActionSupport implements ModelDriven<Object> {
 	public String update() {
 		Set<Authority> authorities = new HashSet<Authority>();
 		String[] idarr = authorityStr.split(":");
-		for(String id:idarr){
-			Authority authority = new Authority();
-			authority.setId(Long.parseLong(id));
-			authorities.add(authority);
+		for (String id : idarr) {
+			if (StringUtils.isNotBlank(id)) {
+				Authority authority = new Authority();
+				authority.setId(Long.parseLong(id));
+				authorities.add(authority);
+			}
 		}
 		model.setAuthorities(authorities);
 		RoleService.update(model);

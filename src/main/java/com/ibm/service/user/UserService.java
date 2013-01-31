@@ -1,5 +1,6 @@
 package com.ibm.service.user;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ibm.dao.LogDao;
@@ -64,4 +64,11 @@ public class UserService implements UserDetailsService{
 		return userDao.getUserByName(username);
 	}
 
+	public List<User> queryUserByIds(Long[] ids){
+		return userDao.queryUserByIds(ids);
+	}
+	
+	public void update(User user){
+		userDao.update(user);
+	}
 }
