@@ -28,11 +28,11 @@ public class Role extends IdEntity implements Serializable {
 
 	private Set<Authority> authorities;
 	
-	public String getRolename() {
+	public String getRoleName() {
 		return roleName;
 	}
 
-	public void setRolename(String roleName) {
+	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
 
