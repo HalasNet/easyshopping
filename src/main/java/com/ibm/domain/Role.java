@@ -20,7 +20,7 @@ public class Role extends IdEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 2178247159991258572L;
 
-	private String rolename;
+	private String roleName;
 
 	private String remark;
 
@@ -29,11 +29,11 @@ public class Role extends IdEntity implements Serializable {
 	private Set<Authority> authorities;
 	
 	public String getRolename() {
-		return rolename;
+		return roleName;
 	}
 
 	public void setRolename(String roleName) {
-		this.rolename = roleName;
+		this.roleName = roleName;
 	}
 
 	public String getRemark() {
