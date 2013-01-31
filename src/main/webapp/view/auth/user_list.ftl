@@ -60,7 +60,7 @@
 								</TD>
 								<TD height="15" align="center">
 									<#list user.roles as urole>
-										${urole.rolename}
+										${urole.roleName}
 									</#list>
 								</TD>
 								

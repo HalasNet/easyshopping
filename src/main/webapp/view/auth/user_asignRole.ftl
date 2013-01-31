@@ -48,7 +48,7 @@
 									<input type="checkbox" name="roles[${role_index}].id" value="${role.id}"/>
 								</TD>
 								<TD height="15" align="center">
-									${role.rolename}
+									${role.roleName}
 								</TD>
 	
 
