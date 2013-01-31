@@ -129,7 +129,7 @@ public class RoleAction extends ActionSupport implements ModelDriven<Object> {
 	}
 
 	public String view() {
-		String name = role.getRoleName();
+		String name = role.getRolename();
 		if (StringUtils.isBlank(name)) {
 			return "index";
 		}
