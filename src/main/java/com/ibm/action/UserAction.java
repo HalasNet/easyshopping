@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import com.ibm.dao.impl.UserDaoImpl;
 import com.ibm.domain.Role;
 import com.ibm.domain.User;
+import com.ibm.domain.UserAccount;
 import com.ibm.service.user.RoleService;
 import com.ibm.service.user.UserService;
 import com.opensymphony.xwork2.ActionSupport;
@@ -29,6 +30,7 @@ import com.opensymphony.xwork2.ActionSupport;
 @Results({ @Result(name = "list", location = "/view/auth/user_list.ftl"),
 		@Result(name = "asignRole", location = "/view/auth/user_asignRole.ftl"),
 		@Result(name = "user_add", location = "/view/auth/user_add.jsp"),
+		@Result(name = "user_update", location = "/view/auth/user_update.jsp"),
 		@Result(name = "redirectUser", type = "redirectAction", params = {
 				"actionName", "user" }),
 		@Result(name = "delete", location = "user-delete.ftl") })
@@ -82,7 +84,7 @@ public class UserAction extends ActionSupport {
 		user.setPassword("111111");
 		userService.saveUser(user);
 		logger.info("save user complete");
-		return index();
+		return "redirectUser";
 	}
 	public String index() {
 		users = userService.listAll();
@@ -102,6 +104,14 @@ public class UserAction extends ActionSupport {
 	}
 	public String register(){
 		return "user_add";
+	}
+	/**
+	 * 更新用户
+	 * @return
+	 */
+	public String viewModify(){
+		user = userService.getUser(id);
+		return "user_update";
 	}
 	/**
 	 * 分配角色
@@ -132,11 +142,19 @@ public class UserAction extends ActionSupport {
 	}
 	
 	public String delete() {
-		return "delete";
+		if(id!=null)
+			userService.delete(id);
+		return "redirectUser";
 	}
 	
 	public String update(){
-		return "delete";
+		User u = userService.getUser(id);
+		UserAccount ua = u.getUserAccount();
+		ua.setAddress(user.getUserAccount().getAddress());
+		ua.setMobile(user.getUserAccount().getMobile());
+		ua.setPhone(user.getUserAccount().getPhone());
+		userService.update(u);
+		return "redirectUser";
 	}
 
 	public String getUserName() {

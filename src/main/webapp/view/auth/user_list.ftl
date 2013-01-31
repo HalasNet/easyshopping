@@ -80,7 +80,7 @@
 								</TD>       
 								
 								<TD height="15" align="center">
-									<a href="javascript:del('${user.id}')"> <img src="../images/icon_del.gif" border="0" title="删除"></a>
+									<a href="user!delete?id=${user.id}"> <img src="../images/icon_del.gif" border="0" title="删除"></a>
 								</TD>
 
 							</TR>

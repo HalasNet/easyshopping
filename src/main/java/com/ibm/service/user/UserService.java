@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import com.ibm.dao.LogDao;
 import com.ibm.dao.UserDao;
@@ -41,6 +42,12 @@ public class UserService implements UserDetailsService{
 		logDao.save(log);
 	}
 
+	public void delete(Long id){
+		Assert.notNull(id);
+		logger.info("delete user by id :"+id);
+		userDao.delete(id);
+	}
+	
 	@Transactional(readOnly = true)
 	public User loginUser(String name, String password) {
 		return userDao.getUserByNameAndPwd(name, password);

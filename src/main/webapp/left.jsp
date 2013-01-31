@@ -16,7 +16,7 @@ href="../styles/style_left.css" type=text/css rel=stylesheet>
         <TR>
           <TD class=menu id=menubar vAlign=top>
           <ol>
-        <sec:authorize ifAnyGranted="authority_mgr">
+        <sec:authorize ifAnyGranted="authority_mgr" >
             <LI><A href="authority" 
             target=frmright>权限管理</A> </LI>
         </sec:authorize>    
