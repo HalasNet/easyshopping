@@ -7,6 +7,7 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +25,7 @@ import com.opensymphony.xwork2.ActionSupport;
 @ParentPackage("publicPackage")  
 @Namespace("/admin")
 @Controller
+@Results({@Result(name = "left",location = "/left.jsp")})
 public class MainAction extends ActionSupport implements ServletRequestAware{
 
 	/**
@@ -45,6 +47,9 @@ public class MainAction extends ActionSupport implements ServletRequestAware{
 		return SUCCESS;
 	}
 
+	public String left(){
+		return "left";
+	}
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
 		this.request = request;

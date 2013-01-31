@@ -70,7 +70,7 @@ width="100%" border=0>
           <TD class=main_left_title id=leftmenu_title>系统功能</TD>
           <TD vAlign=top align=right></TD></TR></TBODY></TABLE><IFRAME 
       class=left_iframe id=frmleft name=frmleft 
-      src="../left.jsp" frameBorder=0 
+      src="../admin/main!left" frameBorder=0 
       allowTransparency></IFRAME>
       <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
         <TBODY>
@@ -103,7 +103,7 @@ width="100%" border=0>
           background=../images/bg2.gif>| <A 
             href="#" target=_top>后台首页</A> 
             | <A href="#" target=_top>首页</A> | <A 
-            href="javascript:AdminOut()" target=_top>退出</A> </TD>
+            href="user_logout" target=_top>退出</A> </TD>
           <TD vAlign=top align=right width=28 
           background=../images/bg2.gif><IMG alt="" 
             src="../images/teble_top_right.gif"></TD>

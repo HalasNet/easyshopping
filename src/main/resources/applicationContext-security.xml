@@ -20,9 +20,9 @@
   		
         <form-login login-page="/login.jsp"  
             authentication-failure-url="/login.jsp?error=1"  
-            default-target-url="/admin/main" login-processing-url="/admin/j_spring_security_check" always-use-default-target="true"/>  
+            default-target-url="/admin/main" login-processing-url="/admin/login_check" always-use-default-target="true"/>  
             
-        <logout logout-success-url="/login.jsp"/>
+        <logout logout-success-url="/login.jsp" logout-url="/admin/user_logout"/>
         
         <!-- 实现免登陆验证 -->  
         <session-management invalid-session-url="/anonymous/timeout.jsp">  

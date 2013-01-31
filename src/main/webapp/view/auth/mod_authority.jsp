@@ -40,7 +40,7 @@
             </tr>	
             <tr bgcolor="#FFFFFF">
               <td bgcolor="#ebebea" align="right">权限路径</td>
-              <td><input  class="box_170" type="text" name="authority.requestURI" id="requestURI"  maxlength="20" value="${authority.requestURI}"></td>
+              <td><input  class="box_170" type="text" name="authority.requestURI" id="requestURI"  maxlength="50" value="${authority.requestURI}"></td>
               <td bgcolor="#ebebea" align="right">权限说明： </td>
               <td><input  class="box_170" type="text" name="authority.comment" id="comment"  maxlength="20" value="${authority.comment}"></td>
             </tr>

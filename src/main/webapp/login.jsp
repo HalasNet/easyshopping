@@ -10,7 +10,7 @@
 <script type="text/javascript">
 	function checkLogin(){
 		var form = document.getElementById("adminlogin");
-		form.action="admin/j_spring_security_check";
+		form.action="admin/login_check";
 		form.submit();
 	}
 	function reset(){
