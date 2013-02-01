@@ -30,5 +30,6 @@
               <mapping class="com.ibm.domain.Role"/>
               <mapping class="com.ibm.domain.User"/>
               <mapping class="com.ibm.domain.UserAccount"/>
+              <mapping class="com.ibm.domain.ProductIndex"/>
        </session-factory>
 </hibernate-configuration>
