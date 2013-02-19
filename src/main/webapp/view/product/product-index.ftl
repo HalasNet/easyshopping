@@ -13,7 +13,7 @@ dojo.ready(function() {
 	dojo.connect(dojo.byId("delete"),"click",function(e) {
 		if (confirm('确定要删除吗?')){
 			dojo.attr(dojo.byId('productForm'),"action","product/"+dojo.attr(dojo.byId("delete"),"value")+"?_method=DELETE");
-			dojo.xhrPost({ form: "productForm" });
+			dojo.xhrPost({ form: "productForm" ,load: handleResponse});
 		}
 	});
 	
@@ -27,6 +27,12 @@ dojo.ready(function() {
 	});
 
 });
+
+function handleResponse(responseText){
+    // responseText为后天返回的数据
+    alert("处理成功！");
+    window.location.reload();
+}
 </script>
 </head>
 
@@ -101,7 +107,7 @@ dojo.ready(function() {
 								</TD>
 								
 								<TD height="15" align="center">
-									<a href="authority!viewModify?id=${product.id}/>"><img src="../images/icon_edit.gif" border="0" title="修改"></a>
+									<a href="product!addProductView?product.id=${product.id}"><img src="../images/icon_edit.gif" border="0" title="修改"></a>
 								</TD>       
 								
 								<TD height="15" align="center">
@@ -114,7 +120,7 @@ dojo.ready(function() {
 					  <!--fy start-->
 					 <table width="99%" height="25" border="0" align="center" cellpadding="0" cellspacing="0">
                         <tr>
-                          <td align="left"><input type="button" value="创 建" class="select_button" onClick="location.href='authority!viewCreate'">
+                          <td align="left"><input type="button" value="创 建" class="select_button" onClick="location.href='product!addProductView'">
                           </td>
                           <td align="fight">
                           <@pagination.pagingToolbar formId="productForm" />
