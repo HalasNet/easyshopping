@@ -1,5 +1,6 @@
 package com.ibm.dao.impl;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class UserDaoImpl extends BaseHibernateDao<User, Long> implements
 	@Override@SuppressWarnings("unchecked")
 	public List<User> queryUserByIds(Long[] ids) {
 		String hql = "from User where id in (:ids)";
-		logger.info(hql+" with parameter :"+ids);
+		logger.info(hql+" with parameter :"+Arrays.asList(ids));
 		return getSession().createQuery(hql).setParameterList("ids", ids).list();
 	}
 

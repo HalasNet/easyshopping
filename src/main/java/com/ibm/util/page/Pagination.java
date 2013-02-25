@@ -6,7 +6,7 @@ public class Pagination {
 	private int step = 1;
 	private int pageSize = 10;// 页面大小
 	private int total;// 总数量
-	private int curPage;// 当前页数
+	private int curPage = 0;// 当前页数
 	private int prePage = curPage - step; // 上一页
 	private int nextPage = curPage + step; // 下一页
 	private int totalPage; // 总页数
