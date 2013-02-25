@@ -48,7 +48,13 @@
 				        d = new dTree('d');
 						d.add(0,-1,'全部权限：');
 						<s:iterator value="authTreeList">
-						d.add(<s:property value="authority.id" />,0,'authority','<s:property value="authority.id" />','<s:property value="authority.name" />','<s:property value="isChecked" />');
+						<s:if test='%{authority.parent==null }'>
+							d.add(<s:property value="authority.id" />,0,'authority','<s:property value="authority.id" />','<s:property value="authority.name" />','<s:property value="isChecked" />');
+						</s:if>
+						<s:else>
+							d.add(<s:property value="authority.id" />,<s:property value="authority.parent.id" />,'authority','<s:property value="authority.id" />','<s:property value="authority.name" />','<s:property value="isChecked" />');     
+						</s:else>
+						
 						</s:iterator>
 						document.write(d);
 						d.openAll();
