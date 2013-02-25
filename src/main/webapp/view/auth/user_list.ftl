@@ -1,3 +1,4 @@
+<#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
@@ -90,7 +91,10 @@
 					 <table width="99%" height="25" border="0" align="center" cellpadding="0" cellspacing="0">
                         <tr>
                           <td align="left">
-                          <input type="button" value="创 建" class="select_button" onClick="location.href='user!register'">
+                       		   <@security.authorize ifAnyGranted="user_mgr_add">
+	                         	 <input type="button" value="创 建" class="select_button" onClick="location.href='user!register'">
+							</@security.authorize>
+ 
                       	  <input type="button" id="asignRoleBtn" value="分配角色" class="select_button" >
                           </td>
                           <td align="left">

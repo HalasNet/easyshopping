@@ -65,6 +65,7 @@ function del(id)
                           <td colspan="15" align="center" class="td1">操作</td>
                         </tr>
                         <s:iterator value="list" >
+                        	<s:if test="parent == null">
 							<TR bgcolor="#FFFFFF">
 								<TD height="15" align="center">
 									<s:property value="authcode" />
@@ -90,6 +91,7 @@ function del(id)
 								</TD>
 
 							</TR>
+                        	</s:if>
 					  </s:iterator>	
     </table>
 					  <!--fy start-->
