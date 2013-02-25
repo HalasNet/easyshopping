@@ -73,4 +73,8 @@ public class AuthorityService {
 		authorityDao.delete(id);
 
 	}
+	
+	public void delete(Authority entity){
+		authorityDao.deleteObject(entity);
+	}
 }

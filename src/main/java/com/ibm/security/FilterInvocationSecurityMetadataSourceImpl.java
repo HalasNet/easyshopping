@@ -60,7 +60,8 @@ public class FilterInvocationSecurityMetadataSourceImpl implements
 		
 		String requestUrl = ((FilterInvocation) object).getRequestUrl();
 		for (String resourceUrl:resourceMap.keySet()) {
-			if (!"/**".equals(resourceUrl) && urlMatcher.match(resourceUrl,requestUrl)) {
+			
+			if (resourceUrl!=null && !"/**".equals(resourceUrl) && urlMatcher.match(resourceUrl,requestUrl)) {
 				return resourceMap.get(resourceUrl);
 			}
 		}

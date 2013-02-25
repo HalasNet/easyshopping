@@ -1,6 +1,8 @@
 package com.ibm.action;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.convention.annotation.Namespace;
@@ -29,6 +31,8 @@ public class AuthorityAction extends ActionSupport {
 
 	private List<Authority> list;
 
+	private String[] crud;
+	
 	public String index() {
 		list = authorityService.getAuthorityByName("");
 		if (list != null) {
@@ -86,7 +90,36 @@ public class AuthorityAction extends ActionSupport {
 	 * @return
 	 */
 	public String modify() {
-		authorityService.modify(authority);
+		
+		Authority entity = authorityService.getAuthority(authority.getId());
+		if(entity!=null){
+			if(entity.getCrud()!=null && !entity.getCrud().isEmpty()){
+				Set<Authority> auths = entity.getCrud();
+				entity.setCrud(null);
+				for(Authority delAuth : auths)
+					authorityService.delete(delAuth);
+			}
+		}
+		entity.setCrud(null);
+		if(crud!=null && crud.length>0){
+			Set<Authority> subs = new HashSet<Authority>();
+			entity.setCrud(subs);
+			Authority sub = null;
+			for(String code : crud){
+				sub = new Authority();
+				sub.setAuthcode(authority.getAuthcode()+code);
+				sub.setName(code);
+				sub.setParent(authority);
+				subs.add(sub);
+			}
+		}
+		entity.setAuthcode(authority.getAuthcode());
+		entity.setComment(authority.getComment());
+		entity.setName(authority.getName());
+		entity.setRequestURI(authority.getRequestURI());
+		authorityService.modify(entity);
+//		System.out.println(crud);
+		
 		return index();
 	}
 
@@ -114,6 +147,14 @@ public class AuthorityAction extends ActionSupport {
 
 	public void setAuthority(Authority authority) {
 		this.authority = authority;
+	}
+
+	public String[] getCrud() {
+		return crud;
+	}
+
+	public void setCrud(String[] crud) {
+		this.crud = crud;
 	}
 
 	public AuthorityService getAuthorityService() {

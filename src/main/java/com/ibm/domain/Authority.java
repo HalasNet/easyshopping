@@ -2,8 +2,12 @@ package com.ibm.domain;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -38,6 +42,10 @@ public class Authority extends IdEntity implements GrantedAuthority{
 	 */
 	private String requestURI;
 
+	private Authority parent;
+	
+	private Set<Authority> crud;
+	
 	@Transient
 	@Override
 	public String getAuthority() {
@@ -80,6 +88,24 @@ public class Authority extends IdEntity implements GrantedAuthority{
 		this.requestURI = requestURI;
 	}
 	
+	@ManyToOne
+	public Authority getParent() {
+		return parent;
+	}
+
+	public void setParent(Authority parent) {
+		this.parent = parent;
+	}
+
+	@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+	public Set<Authority> getCrud() {
+		return crud;
+	}
+
+	public void setCrud(Set<Authority> crud) {
+		this.crud = crud;
+	}
+
 	@Override
 	public String toString() {
 		return "Authority -- id:"+id;

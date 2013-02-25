@@ -14,6 +14,7 @@ import org.apache.struts2.convention.annotation.Results;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import com.ibm.dao.impl.UserDaoImpl;
@@ -53,7 +54,6 @@ public class UserAction extends ActionSupport {
 	
 	private Long[] ids;
 	
-	@Autowired
 	private UserService userService;
 	@Resource
 	private RoleService roleService;
@@ -78,6 +78,7 @@ public class UserAction extends ActionSupport {
 		return "success";
 	}
 
+	@PreAuthorize("hasRole('user_mgr_add')")
 	public String save(){
 		if(user == null || StringUtils.isBlank(user.getUserName()))
 			return ERROR;
@@ -102,6 +103,7 @@ public class UserAction extends ActionSupport {
 			return "error";
 		}
 	}
+	@PreAuthorize("hasRole('user_mgr_add')")
 	public String register(){
 		return "user_add";
 	}
@@ -212,6 +214,10 @@ public class UserAction extends ActionSupport {
 	public void setIds(Long[] ids) {
 		this.ids = ids;
 	}
+	@Resource
+	public void setUserService(UserService userService) {
+		System.out.println("di userService");
+		this.userService = userService;
+	}
 
-	
 }
