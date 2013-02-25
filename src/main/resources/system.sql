@@ -123,3 +123,57 @@ CREATE TABLE `t_user_role` (
 -- Records of t_user_role
 -- ----------------------------
 INSERT INTO `t_user_role` VALUES ('1', '1');
+
+-- 2013-2-25 added by QiuZhiquan --
+
+DROP TABLE IF EXISTS `t_authority`;
+
+CREATE TABLE `t_authority` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `authcode` varchar(30) NOT NULL,
+  `comment` varchar(50) DEFAULT NULL,
+  `name` varchar(30) NOT NULL,
+  `requestURI` varchar(50) DEFAULT NULL,
+  `parent_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `authcode` (`authcode`),
+  KEY `FK76D60138818A5D0` (`parent_id`),
+  CONSTRAINT `FK76D60138818A5D0` FOREIGN KEY (`parent_id`) REFERENCES `t_authority` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+
+/*Data for the table `t_authority` */
+
+insert  into `t_authority`(`id`,`authcode`,`comment`,`name`,`requestURI`,`parent_id`) values (1,'user_mgr','用户管理','user manage','/admin/user',NULL),(2,'role_mgr','角色管理相关权限','角色管理','/admin/role',NULL),(3,'authority_mgr','权限管理','权限管理','/admin/authority',NULL),(4,'product_mgr','商品管理','商品管理','/admin/product',NULL),(5,'product_kind_mgr','商品类别管理','商品类别管理','/admin/ProductCategory',NULL),(12,'user_mgr_add',NULL,'_add',NULL,1),(13,'user_mgr_update',NULL,'_update',NULL,1);
+
+/*Table structure for table `t_role` */
+
+DROP TABLE IF EXISTS `t_role`;
+
+CREATE TABLE `t_role` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `remark` varchar(255) DEFAULT NULL,
+  `roleName` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `t_role` */
+
+insert  into `t_role`(`id`,`remark`,`roleName`) values (1,'系统管理员具有所有权限','系统管理员');
+
+/*Table structure for table `t_role_authority` */
+
+DROP TABLE IF EXISTS `t_role_authority`;
+
+CREATE TABLE `t_role_authority` (
+  `roleId` bigint(20) NOT NULL,
+  `authorityId` bigint(20) NOT NULL,
+  PRIMARY KEY (`roleId`,`authorityId`),
+  KEY `FK8A79DDE5B29678AA` (`roleId`),
+  KEY `FK8A79DDE5B7C1449E` (`authorityId`),
+  CONSTRAINT `FK8A79DDE5B29678AA` FOREIGN KEY (`roleId`) REFERENCES `t_role` (`id`),
+  CONSTRAINT `FK8A79DDE5B7C1449E` FOREIGN KEY (`authorityId`) REFERENCES `t_authority` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `t_role_authority` */
+
+insert  into `t_role_authority`(`roleId`,`authorityId`) values (1,1),(1,2),(1,3),(1,4),(1,5),(1,13);
