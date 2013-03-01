@@ -148,7 +148,7 @@ public class UserAction extends ActionSupport {
 			userService.delete(id);
 		return "redirectUser";
 	}
-	
+	@PreAuthorize("hasRole('user_mgr_update')")
 	public String update(){
 		User u = userService.getUser(id);
 		UserAccount ua = u.getUserAccount();

@@ -2,6 +2,7 @@ package com.ibm.service.user;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -12,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ibm.dao.AuthorityDao;
 import com.ibm.dao.LogDao;
+import com.ibm.dao.RoleDao;
 import com.ibm.domain.Authority;
 import com.ibm.domain.Log;
+import com.ibm.domain.Role;
 
 /**
  * 
@@ -28,7 +31,8 @@ public class AuthorityService {
 	private List<Authority> allAuths;
 	@Resource
 	private AuthorityDao authorityDao;
-
+	@Resource
+	private RoleDao roleDao;
 	@Autowired
 	private LogDao logDao;
 
@@ -71,10 +75,17 @@ public class AuthorityService {
 	@Transactional
 	public void del(Long id) {
 		authorityDao.delete(id);
-
+		
 	}
 	
-	public void delete(Authority entity){
-		authorityDao.deleteObject(entity);
+	public void deleteByParent(Authority parent){
+		if(parent == null || parent.getId() == null)
+			return;
+		Authority entity = authorityDao.get(parent.getId());
+		if(entity == null)
+			return;
+		for(Authority son:entity.getCrud()){
+			authorityDao.delete(son);
+		}
 	}
 }

@@ -25,6 +25,13 @@ public class AuthorityDaoImpl extends BaseHibernateDao<Authority, Long>
 			.getLogger(AuthorityDaoImpl.class);
 
 	@Override
+	public void delete(Authority entity) {
+		if(entity == null || entity.getId() == null)
+			return;
+		delete(entity.getId());
+	}
+
+	@Override
 	public List<Authority> getAuthorityByName(String name) {
 		logger.info("execute AuthorityDaoImpl method getAuthorityByName()");
 		if (StringUtils.isNotBlank(name)) {
@@ -37,6 +44,14 @@ public class AuthorityDaoImpl extends BaseHibernateDao<Authority, Long>
 
 	}
 
+	@Override
+	public void delete(Long id) {
+
+		String sql = "delete from t_authority where id = ?";
+		String sql2 = "delete from t_role_authority where authorityId = ?";
+		getSession().createSQLQuery(sql2).setParameter(0, id).executeUpdate();
+		getSession().createSQLQuery(sql).setParameter(0, id).executeUpdate();
+	}
 	@Override
 	public List<Authority> listAll() {
 		String hql = "from Authority";

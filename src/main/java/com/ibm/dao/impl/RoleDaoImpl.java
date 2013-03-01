@@ -16,4 +16,5 @@ public class RoleDaoImpl extends BaseHibernateDao<Role, Long> implements
 		String hql = "from Role where roleName like ?";
 		return list(hql, "%" + name + "%");
 	}
+	
 }

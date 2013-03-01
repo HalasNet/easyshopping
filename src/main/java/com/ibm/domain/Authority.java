@@ -1,5 +1,6 @@
 package com.ibm.domain;
 
+import java.util.Collection;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.Hibernate;
+import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
@@ -45,6 +48,8 @@ public class Authority extends IdEntity implements GrantedAuthority{
 	private Authority parent;
 	
 	private Set<Authority> crud;
+	
+//	private Set<Role> roles;
 	
 	@Transient
 	@Override
@@ -105,7 +110,16 @@ public class Authority extends IdEntity implements GrantedAuthority{
 	public void setCrud(Set<Authority> crud) {
 		this.crud = crud;
 	}
+/*
+	@ManyToMany(mappedBy="authorities",cascade={})
+	public Set<Role> getRoles() {
+		return roles;
+	}
 
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+*/
 	@Override
 	public String toString() {
 		return "Authority -- id:"+id;

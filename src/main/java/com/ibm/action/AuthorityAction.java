@@ -90,17 +90,12 @@ public class AuthorityAction extends ActionSupport {
 	 * @return
 	 */
 	public String modify() {
-		
+		authorityService.deleteByParent(authority);
 		Authority entity = authorityService.getAuthority(authority.getId());
-		if(entity!=null){
-			if(entity.getCrud()!=null && !entity.getCrud().isEmpty()){
-				Set<Authority> auths = entity.getCrud();
-				entity.setCrud(null);
-				for(Authority delAuth : auths)
-					authorityService.delete(delAuth);
-			}
-		}
-		entity.setCrud(null);
+		if(entity == null)
+			return index();
+		//
+		
 		if(crud!=null && crud.length>0){
 			Set<Authority> subs = new HashSet<Authority>();
 			entity.setCrud(subs);
@@ -118,7 +113,6 @@ public class AuthorityAction extends ActionSupport {
 		entity.setName(authority.getName());
 		entity.setRequestURI(authority.getRequestURI());
 		authorityService.modify(entity);
-//		System.out.println(crud);
 		
 		return index();
 	}

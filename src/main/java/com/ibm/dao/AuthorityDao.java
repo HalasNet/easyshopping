@@ -13,4 +13,6 @@ import com.ibm.domain.Authority;
 public interface AuthorityDao extends IBaseDao<Authority,Long>{
 
 	public List<Authority> getAuthorityByName(String name);
+	
+	public void delete(Authority entity);
 }
