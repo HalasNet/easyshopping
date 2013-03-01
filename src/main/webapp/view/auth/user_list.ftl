@@ -77,7 +77,9 @@
 								</TD>
 								
 								<TD height="15" align="center">
+									<@security.authorize ifAnyGranted="user_mgr_update">
 									<a href="user!viewModify?id=${user.id}"><img src="../images/icon_edit.gif" border="0" title="修改"></a>
+									</@security.authorize>
 								</TD>       
 								
 								<TD height="15" align="center">

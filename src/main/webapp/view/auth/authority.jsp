@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@  taglib prefix="s" uri="/struts-tags"%>
+<%@  taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
