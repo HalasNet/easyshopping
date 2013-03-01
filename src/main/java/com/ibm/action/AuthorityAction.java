@@ -80,6 +80,18 @@ public class AuthorityAction extends ActionSupport {
 	 * @return
 	 */
 	public String save() {
+		if(crud!=null && crud.length>0){
+			Set<Authority> subs = new HashSet<Authority>();
+			authority.setCrud(subs);
+			Authority sub = null;
+			for(String code : crud){
+				sub = new Authority();
+				sub.setAuthcode(authority.getAuthcode()+code);
+				sub.setName(getCrudByCode(code));
+				sub.setParent(authority);
+				subs.add(sub);
+			}
+		}
 		authorityService.save(authority);
 		return index();
 	}
@@ -103,7 +115,7 @@ public class AuthorityAction extends ActionSupport {
 			for(String code : crud){
 				sub = new Authority();
 				sub.setAuthcode(authority.getAuthcode()+code);
-				sub.setName(code);
+				sub.setName(getCrudByCode(code));
 				sub.setParent(authority);
 				subs.add(sub);
 			}
@@ -167,4 +179,15 @@ public class AuthorityAction extends ActionSupport {
 		this.list = list;
 	}
 
+	private String getCrudByCode(String code){
+		if("_add".equals(code))
+			return "增加";
+		else if("_update".equals(code))
+			return "修改";
+		else if("_del".equals(code))
+			return "删除";
+		else if("_query".equals(code))
+			return "查询";
+		return null;
+	}
 }

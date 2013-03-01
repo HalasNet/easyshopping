@@ -44,6 +44,17 @@
               <td bgcolor="#ebebea" align="right">权限说明： </td>
               <td><input  class="box_170" type="text" name="authority.comment" id="comment"  maxlength="20"></td>
             </tr>
+            <tr bgcolor="#FFFFFF">
+              <td bgcolor="#ebebea" align="right">具体操作： </td>
+              <td>
+              	增加<input type="checkbox" name="crud" value="_add" id="crud_add">	
+              	删除<input type="checkbox" name="crud" value="_del" id="crud_del">
+              	修改<input type="checkbox" name="crud" value="_update" id="crud_update">
+              	查询<input type="checkbox" name="crud" value="_query" id="crud_query">
+              </td>
+              <td bgcolor="#ebebea" align="right">权限说明： </td>
+              <td>&nbsp;</td>
+            </tr>
           
     </table>
     <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
