@@ -1,4 +1,0 @@
-...
-2013-2-13 
-add Twitter Bootstrap Suooprt
-demo url:http://usman.it/themes/charisma/
