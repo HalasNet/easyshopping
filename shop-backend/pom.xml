@@ -123,7 +123,7 @@
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.4</version>
-			<scope>provide</scope>
+			<scope>provided</scope>
 		</dependency>
 		
 			<!-- jdbc driver -->
@@ -131,7 +131,7 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.21</version>
-			<scope>provide</scope>
+			<scope>provided</scope>
 		</dependency>
   </dependencies>
   <build>
